@@ -21,6 +21,11 @@
 
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation %>
+      
+      <%= f.label :photo %>
+      <%= form_for @user, url: users_path, html: { multipart: true } do |form| %>
+        <%= form.file_field :avatar %>
+      <% end %>
 
       <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>

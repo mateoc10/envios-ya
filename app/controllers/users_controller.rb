@@ -8,6 +8,9 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to the Sample App!"
       render 'new'
     else
+      if :password != :password_confirmation 
+        flash.now[:danger] = "Passwords don't match"
+      end
       render 'new'
     end
   end
