@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012232230) do
+ActiveRecord::Schema.define(version: 20171013172356) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "drivers", force: :cascade do |t|
     t.string "name"
@@ -19,12 +22,23 @@ ActiveRecord::Schema.define(version: 20171012232230) do
     t.string "document"
     t.string "photo"
     t.string "img_license"
-    t.string "documentation"
     t.boolean "available"
     t.boolean "active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password"
+    t.string "password_digest"
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.integer "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string "license_file_name"
+    t.string "license_content_type"
+    t.integer "license_file_size"
+    t.datetime "license_updated_at"
+    t.string "documentation_file_name"
+    t.string "documentation_content_type"
+    t.integer "documentation_file_size"
+    t.datetime "documentation_updated_at"
   end
 
   create_table "users", force: :cascade do |t|

@@ -2,13 +2,15 @@ class DriversController < ApplicationController
   def new
      @driver = Driver.new
   end
-  
   def create
     @driver = Driver.new(driver_params)
     if @driver.save
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Welcome to the Envios ya!"
       render 'new'
     else
+      if :password != :password_confirmation 
+        flash.now[:danger] = "Passwords don't match"
+      end
       render 'new'
     end
   end

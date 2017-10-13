@@ -1,4 +1,4 @@
-<% provide(:title, 'Sign up') %>
+<% provide(:title, 'Sign up as Driver') %>
 <h1>Sign up</h1>
 
 <div class="row">
@@ -12,22 +12,26 @@
       
       <%= f.label :document %>
       <%= f.text_field :document %>
-      
-      <%= f.label :documentation %>
-      <%= f.text_field :documentation %>
-      
-      <%= f.label :img_license %>
-      <%= f.text_field :img_license %>
 
       <%= f.label :email %>
       <%= f.email_field :email %>
 
       <%= f.label :password %>
       <%= f.password_field :password %>
+      
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation %>
+      
+      <%= f.label :avatar %>
+      <%= f.file_field :avatar %>
+      
+      <%= f.label 'Documentation (PDF)' %>
+      <%= f.file_field :documentation %>
+      
+      <%= f.label "Licence's picture" %>
+      <%= f.file_field :license %>
 
-     
-
-      <%= f.submit "Create", class: "btn btn-primary" %>
+      <%= f.submit "Submit", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
