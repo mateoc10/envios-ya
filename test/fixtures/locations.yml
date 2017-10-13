@@ -4,12 +4,12 @@ one:
   lat: 1.5
   long: 1.5
   street: MyString
-  number: 1.5
-  zipcode: 1.5
+  number: 
+  zipcode: 
 
 two:
   lat: 1.5
   long: 1.5
   street: MyString
-  number: 1.5
-  zipcode: 1.5
+  number: 
+  zipcode: 
