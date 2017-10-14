@@ -1,2 +1,16 @@
-<h1>Shipments#new</h1>
-<p>Find me in app/views/shipments/new.html.erb</p>
+<% provide(:title, 'Sign up') %>
+<h1>Shipment</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@shipment, url: shipments_create_path) do |f| %>
+      <%= f.label 'Destination user email' %>
+      <%= f.text_field :userDestination %>
+      
+      <%= f.label :payment %>
+      <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>
+
+      <%= f.submit "Create shipment", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

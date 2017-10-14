@@ -24,5 +24,9 @@ Rails.application.routes.draw do
   get    '/drivers_session/login',   to: 'driver_sessions#new'
   post   '/drivers_session/login',   to: 'driver_sessions#create' 
   
+  resources :shipments
+  get '/shipments/create', to: 'shipments#new'
+  post '/shipments/create', to: 'shipments#create'
+  
   
 end
