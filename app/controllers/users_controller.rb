@@ -6,8 +6,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     invitee = params[:invitee]
     @user.new_user = true
-    @user.invitee = invitee
-    if invitee 
+    if invitee && invitee != "-1"
       @user.invitee = invitee
       @user.discounts = 1
     end
