@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = "Welcome to Envios ya!"
+      UserMailer.welcome_email(@user).deliver
       render 'new'
     else
       if :password != :password_confirmation 
