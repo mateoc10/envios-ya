@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'shipments/new'
+
   get 'driver_sessions/new'
   get 'drivers/new'
   get 'sessions/new'
