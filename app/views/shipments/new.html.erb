@@ -28,7 +28,7 @@
 
 <script type='text/javascript'>
   
-    let markerList = [];
+    var markerList = [];
 
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
@@ -39,9 +39,13 @@
         } else if (markerList.length == 1) {
           markerLabel = "Destiny";
         } else {
-          for(i=0; i<markerList.length; i++){
-            markerList[i].setMap(null);
-          }
+          // for(i=0; i<markerList.length; i++){
+          //   markerList[i].setMap(null);
+          // }
+          
+          markerLabel = markerList[0].infowindow;
+          markerList = [markerList[1]]
+          console.log(markerList);
         }
         
         const marker = new google.maps.Marker(
@@ -54,13 +58,12 @@
         markerList.push(marker);
         markerList.map(marker => {marker.setMap(null)})
         handler.addMarkers(markerList);
-        console.log(markerList);
+        
       });
       
       handler.getMap().setCenter(new google.maps.LatLng(-34.90,-56.16));
       handler.getMap().setZoom(13);
       
-      handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
     });
+    
 </script>
