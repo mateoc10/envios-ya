@@ -14,9 +14,12 @@
       <%= f.label :payment %>
       <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>
       
-      <div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
-</div>
+      <%= f.label :Driver %>
+      <%= f.collection_select :driver, Driver.order(:name), :id, :name, {:prompt => @select_value, :selected => :id}%>
+      
+      <div>
+        <div id="map" style='width: 555px; height: 350px;' ></div>
+      </div>
 
       <%= f.submit "Create shipment", class: "btn btn-primary" %>
     <% end %>
@@ -24,27 +27,40 @@
 </div>
 
 <script type='text/javascript'>
+  
+    let markerList = [];
+
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
       google.maps.event.addListener(handler.getMap(), 'click', function(latlng) {
-        console.log('click', latlng);
-        markers = handler.addMarkers([
-          {
-            "lat": -33.881689,
-            "lng": -57.073897,
-            "infowindow": "second!"
+        let markerLabel = "";
+        if(markerList.length == 0) {
+          markerLabel = "Origin";
+        } else if (markerList.length == 1) {
+          markerLabel = "Destiny";
+        } else {
+          for(i=0; i<markerList.length; i++){
+            markerList[i].setMap(null);
           }
-        ]);
-      });
-      markers = handler.addMarkers([
-        {
-          "lat": -34.881689,
-          "lng": -56.073897,
-          "infowindow": "hello!"
         }
-      ]);
+        
+        const marker = new google.maps.Marker(
+          {
+            "lat": latlng.latLng.lat(),
+            "lng": latlng.latLng.lng(),
+            "infowindow": markerLabel
+          }
+        );
+        markerList.push(marker);
+        markerList.map(marker => {marker.setMap(null)})
+        handler.addMarkers(markerList);
+        console.log(markerList);
+      });
+      
+      handler.getMap().setCenter(new google.maps.LatLng(-34.90,-56.16));
+      handler.getMap().setZoom(13);
+      
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
     });
-    
 </script>
