@@ -14,9 +14,12 @@
       <%= f.label :payment %>
       <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>
       
-      <div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
-</div>
+      <%= f.label :Driver %>
+      <%= f.collection_select :driver, Driver.order(:name), :id, :name, {:prompt => @select_value, :selected => :id}%>
+      
+      <div>
+        <div id="map" style='width: 555px; height: 350px;' ></div>
+      </div>
 
       <%= f.submit "Create shipment", class: "btn btn-primary" %>
     <% end %>
@@ -30,24 +33,13 @@
         console.log('click', latlng);
         markers = handler.addMarkers([
           {
-            "lat": -33.881689,
-            "lng": -57.073897,
+            "lat": latlng.latLng.lat(),
+            "lng": latlng.latLng.lng(),
             "infowindow": "second!"
           }
         ]);
       });
-      markers = handler.addMarkers([
-        {
-          "lat": -34.881689,
-          "lng": -56.073897,
-          "infowindow": "hello!"
-        }
-      ]);
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
     });
-<<<<<<< HEAD
-=======
-
->>>>>>> ffe8e61e6ff7a32bdcd1581e0e2bda7c1f201cc0
 </script>
