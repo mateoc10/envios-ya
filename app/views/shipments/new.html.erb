@@ -14,14 +14,9 @@
       <%= f.label :payment %>
       <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>
       
-      <%= f.label :Driver %>
-      <!--<%= f.collection_select :driver, Driver.order(:name), :id, :name, include_blank: false %>-->
-      
-      <%= f.collection_select :driver, Driver.order(:name), :id, :name, {:prompt => @select_value, :selected => :id}%>
-      
-      <div>
-        <div id="map" style='width: 555px; height: 350px;' ></div>
-      </div>
+      <div style='width: 800px;'>
+  <div id="map" style='width: 800px; height: 400px;'></div>
+</div>
 
       <%= f.submit "Create shipment", class: "btn btn-primary" %>
     <% end %>
@@ -29,8 +24,18 @@
 </div>
 
 <script type='text/javascript'>
-var handler = Gmaps.build('Google');
+    handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+      google.maps.event.addListener(handler.getMap(), 'click', function(latlng) {
+        console.log('click', latlng);
+        markers = handler.addMarkers([
+          {
+            "lat": -33.881689,
+            "lng": -57.073897,
+            "infowindow": "second!"
+          }
+        ]);
+      });
       markers = handler.addMarkers([
         {
           "lat": -34.881689,
@@ -41,25 +46,4 @@ var handler = Gmaps.build('Google');
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
     });
-    
-function marker(){
-  
-  marker = handler.addMarkers([
-        {
-          "lat": -14.881689,
-          "lng": -26.073897,
-          "infowindow": "hello!"
-        }
-      ]);
-      handler.bounds.extendWith(marker);
-      handler.fitMapToBounds();
-  
-}
-      
-      
-    
-
-
-
-    
 </script>
