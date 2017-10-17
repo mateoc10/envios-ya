@@ -2,6 +2,7 @@
 <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
 <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script> <!-- only if you need custom infoboxes -->
 
+
 <% provide(:title, 'Sign up') %>
 <h1>Shipment</h1>
 
@@ -17,6 +18,7 @@
       <%= f.label :Driver %>
       <%= f.collection_select :driver, Driver.order(:name), :id, :name, {:prompt => @select_value, :selected => :id}%>
       
+      <%= f.label :Select_origin_and_destiny %>
       <div>
         <div id="map" style='width: 555px; height: 350px;' ></div>
       </div>
@@ -27,43 +29,100 @@
 </div>
 
 <script type='text/javascript'>
-  
+
+
     var markerList = [];
 
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-      google.maps.event.addListener(handler.getMap(), 'click', function(latlng) {
+      //google.maps.event.addListener(handler.getMap(), 'click', function(latlng) {
+        // let markerLabel = "";
+        // if(markerList.length == 0) {
+        //   markerLabel = "Origin";
+        // } else if (markerList.length == 1) {
+        //   markerLabel = "Destiny";
+        // } else {
+        //   deleteMarkers();
+          
+        //   markerLabel = markerList[0].infowindow;
+        //   markerList = [markerList[1]]
+        //   console.log(markerList);
+        // }
+        
+        // const marker = new google.maps.Marker(
+        //   {
+        //     "lat": latlng.latLng.lat(),
+        //     "lng": latlng.latLng.lng(),
+        //     "infowindow": markerLabel
+        //   }
+        // );
+        // markerList.push(marker);
+        // markerList.map(marker => {marker.setMap(null)})
+        // handler.addMarkers(markerList);
+        
+   //   });
+      
+      // handler.getMap().setCenter(new google.maps.LatLng(-34.90,-56.16));
+      // handler.getMap().setZoom(13);
+      
+    });
+    
+    
+      var map;
+      var haightAshbury = {lat: -34.90, lng: -56.16};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: haightAshbury,
+          mapTypeId: 'terrain'
+        });
+
+        // This event listener will call addMarker() when the map is clicked.
+        map.addListener('click', function(event) {
+          addMarker(event.latLng);
+        });
+
+      // Adds a marker to the map and push to the array.
+      function addMarker(location) {
+        
         let markerLabel = "";
         if(markerList.length == 0) {
           markerLabel = "Origin";
         } else if (markerList.length == 1) {
           markerLabel = "Destiny";
         } else {
-          // for(i=0; i<markerList.length; i++){
-          //   markerList[i].setMap(null);
-          // }
-          
-          markerLabel = markerList[0].infowindow;
-          markerList = [markerList[1]]
-          console.log(markerList);
+          deleteMarkers();
+          markerList = [];
+          markerLabel = "Origin";
         }
+        console.log(markerList)
         
-        const marker = new google.maps.Marker(
-          {
-            "lat": latlng.latLng.lat(),
-            "lng": latlng.latLng.lng(),
-            "infowindow": markerLabel
-          }
-        );
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map,
+          title: markerLabel,
+          snippet: markerLabel,
+          infowindow: markerLabel
+        });
         markerList.push(marker);
-        markerList.map(marker => {marker.setMap(null)})
-        handler.addMarkers(markerList);
-        
-      });
+      }
+
+      // Sets the map on all markers in the array.
+      function setMapOnAll(map) {
+        for (var i = 0; i < markerList.length; i++) {
+          markerList[i].setMap(map);
+        }
+      }
+
+      // Removes the markers from the map, but keeps them in the array.
+      function clearMarkers() {
+        setMapOnAll(null);
+      }
+
+      // Deletes all markers in the array by removing references to them.
+      function deleteMarkers() {
+        clearMarkers();
+        markerList = [];
+      }
       
-      handler.getMap().setCenter(new google.maps.LatLng(-34.90,-56.16));
-      handler.getMap().setZoom(13);
-      
-    });
-    
 </script>
