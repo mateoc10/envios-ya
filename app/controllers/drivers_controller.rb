@@ -4,6 +4,7 @@ class DriversController < ApplicationController
   end
   def create
     @driver = Driver.new(driver_params)
+    @driver.location = Location.first.id
     if @driver.save
       flash[:success] = "Welcome to the Envios ya!"
       render 'new'

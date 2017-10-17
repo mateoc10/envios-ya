@@ -95,9 +95,11 @@
         } else if (markerList.length == 1) {
           markerLabel = "Destiny";
         } else {
-          deleteMarkers();
-          markerList = [];
-          markerLabel = "Origin";
+          //deleteMarkers();
+          markerList[0].setMap(null);
+          markerLabel = markerList[0].snippet;
+          markerList = [markerList[1]];
+          
         }
         
         var marker = new google.maps.Marker({
@@ -108,7 +110,7 @@
           infowindow: markerLabel
         });
         markerList.push(marker);
-        //geocodeLatLng(geocoder, map, infowindow, location);   DESCOMENTAR Y PROBAR
+        //geocodeLatLng(geocoder, map, infowindow, location);
       }
 
       // Sets the map on all markers in the array.

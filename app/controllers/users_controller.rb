@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
+  
+  
   def create
     @user = User.new(user_params)
     invitee = params[:invitee]
@@ -11,16 +13,18 @@ class UsersController < ApplicationController
       @user.invitee = invitee
       @user.discounts = 1
     end
-    if @user.save
-      flash[:success] = "Welcome to Envios ya!"
-      # render 'new'
-    else
-      if :password != :password_confirmation 
-        flash.now[:danger] = "Passwords don't match"
+      if @user.save
+        flash[:success] = "Welcome to Envios ya!"
+        # render 'new'
+      else
+        if :password != :password_confirmation 
+          flash.now[:danger] = "Passwords don't match"
+        end
+        render 'new'
       end
-      render 'new'
-    end
   end
+
+
 
   private
 

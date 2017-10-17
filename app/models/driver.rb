@@ -17,4 +17,6 @@ class Driver < ApplicationRecord
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
     has_secure_password
+    
+    has_one :locations, foreign_key: 'location'
 end

@@ -59,6 +59,7 @@ GEM
       xpath (~> 2.0)
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
+    ci_uy (0.1.1)
     climate_control (0.2.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -199,6 +200,7 @@ DEPENDENCIES
   bootstrap-sass (= 3.3.7)
   byebug
   capybara (~> 2.13)
+  ci_uy
   coffee-rails (~> 4.2)
   gmaps4rails
   jbuilder (~> 2.5)

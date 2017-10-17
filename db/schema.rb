@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014170736) do
+ActiveRecord::Schema.define(version: 20171017204749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20171014170736) do
     t.string "documentation_content_type"
     t.integer "documentation_file_size"
     t.datetime "documentation_updated_at"
+    t.integer "location"
+    t.index ["location"], name: "index_drivers_on_location"
   end
 
   create_table "locations", force: :cascade do |t|
