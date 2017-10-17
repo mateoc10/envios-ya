@@ -18,6 +18,8 @@
       <%= f.label :Driver %>
       <%= f.collection_select :driver, Driver.order(:name), :id, :name, {:prompt => @select_value, :selected => :id}%>
       
+      <!--<input id="submit" type="button" value="Reverse Geocode">-->
+      
       <%= f.label :Select_origin_and_destiny %>
       <div>
         <div id="map" style='width: 555px; height: 350px;' ></div>
@@ -69,11 +71,13 @@
     
     
       var map;
-      var haightAshbury = {lat: -34.90, lng: -56.16};
+      var init = {lat: -34.90, lng: -56.16};
+      var geocoder = new google.maps.Geocoder;
+      var infowindow = new google.maps.InfoWindow;
 
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 13,
-          center: haightAshbury,
+          center: init,
           mapTypeId: 'terrain'
         });
 
@@ -95,7 +99,6 @@
           markerList = [];
           markerLabel = "Origin";
         }
-        console.log(markerList)
         
         var marker = new google.maps.Marker({
           position: location,
@@ -105,6 +108,7 @@
           infowindow: markerLabel
         });
         markerList.push(marker);
+        //geocodeLatLng(geocoder, map, infowindow, location);   DESCOMENTAR Y PROBAR
       }
 
       // Sets the map on all markers in the array.
@@ -123,6 +127,25 @@
       function deleteMarkers() {
         clearMarkers();
         markerList = [];
+      }
+      
+      function geocodeLatLng(geocoder, map, infowindow, latlng) {
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          if (status === 'OK') {
+            if (results[1]) {
+              var marker = new google.maps.Marker({
+                position: latlng,
+                map: map
+              });
+              infowindow.setContent(results[1].formatted_address);
+              infowindow.open(map, marker);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+        });
       }
       
 </script>
