@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  price: 1
+  date: 2017-10-14
+  payment: MyString
+  state: MyString
+
+two:
+  price: 1
+  date: 2017-10-14
+  payment: MyString
+  state: MyString

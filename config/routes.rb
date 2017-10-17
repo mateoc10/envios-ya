@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'shipments/new'
+
   get 'driver_sessions/new'
   get 'drivers/new'
   get 'sessions/new'
@@ -21,6 +23,10 @@ Rails.application.routes.draw do
   
   get    '/drivers_session/login',   to: 'driver_sessions#new'
   post   '/drivers_session/login',   to: 'driver_sessions#create' 
+  
+  resources :shipments
+  get '/shipments/create', to: 'shipments#new'
+  post '/shipments/create', to: 'shipments#create'
   
   
 end
