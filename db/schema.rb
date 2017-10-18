@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017204749) do
+ActiveRecord::Schema.define(version: 20171018210251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "drivers", force: :cascade do |t|
     t.string "name"
@@ -39,8 +44,6 @@ ActiveRecord::Schema.define(version: 20171017204749) do
     t.string "documentation_content_type"
     t.integer "documentation_file_size"
     t.datetime "documentation_updated_at"
-    t.integer "location"
-    t.index ["location"], name: "index_drivers_on_location"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -51,6 +54,8 @@ ActiveRecord::Schema.define(version: 20171017204749) do
     t.float "zipcode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "driver_id"
+    t.index ["driver_id"], name: "index_locations_on_driver_id"
   end
 
   create_table "shipments", force: :cascade do |t|
@@ -91,4 +96,5 @@ ActiveRecord::Schema.define(version: 20171017204749) do
     t.index ["invitee"], name: "index_users_on_invitee"
   end
 
+  add_foreign_key "locations", "drivers"
 end
