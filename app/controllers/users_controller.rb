@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  helper_method :get_user_by_id
+  
   def new
     @user = User.new
   end
@@ -18,6 +21,15 @@ class UsersController < ApplicationController
         flash.now[:danger] = "Passwords don't match"
       end
       render 'new'
+    end
+  end
+  
+  def get_user_by_id(id)
+    usr = User.find_by_id(id)
+    if usr != nil
+      return "Invited by " + usr["name"] + " " + usr["lastName"]
+    else 
+      return ""
     end
   end
 
