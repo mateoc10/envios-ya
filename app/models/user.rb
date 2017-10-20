@@ -10,4 +10,7 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   has_one :users, foreign_key: 'invitee'
+  
+  has_many :sent_shipments, class_name: 'Shipment', foreign_key: 'sender_id'
+  has_many :received_shipments, class_name: 'Shipment', foreign_key: 'receiver_id'
 end

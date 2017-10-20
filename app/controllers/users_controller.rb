@@ -14,8 +14,13 @@ class UsersController < ApplicationController
       @user.discounts = 1
     end
       if @user.save
-        flash[:success] = "Welcome to Envios ya!"
-        # render 'new'
+        # flash[:success] = "Welcome to Envios ya!"
+        # Users.welcome_email(@user).deliver
+        
+        # Tell the UserMailer to send a welcome email after save
+        UserMailer.welcome_email(@user).deliver_later
+        flash.now[:success] = "se mando"
+        render 'new'
       else
         if :password != :password_confirmation 
           flash.now[:danger] = "Passwords don't match"
@@ -23,6 +28,7 @@ class UsersController < ApplicationController
         render 'new'
       end
   end
+
 
 
 
