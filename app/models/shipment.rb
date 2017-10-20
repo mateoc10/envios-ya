@@ -1,9 +1,7 @@
 class Shipment < ApplicationRecord
-    
-    has_one :users, foreign_key: 'sender'
-	has_one :users, foreign_key: 'receiver'
-	has_one :locations, foreign_key: 'origin'
-	has_one :locations, foreign_key: 'destination'
-	has_one :drivers, foreign_key: 'driver'
-    
+    belongs_to :receiver, class_name: 'User'
+	belongs_to :sender, class_name: 'User'
+	# has_one :origin, class_name: 'Location'
+	# has_one :destination, class_name: 'Location'
+	has_one :driver
 end

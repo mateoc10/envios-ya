@@ -25,6 +25,8 @@ gem "paperclip", "~> 5.0.0"
 gem 'gmaps4rails'
 gem 'underscore-rails'
 gem 'ci_uy'
+gem 'mail'
+
 
 
 # Use CoffeeScript for .coffee assets and views

@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   def new
     @user = User.new
   end
+  
+  
   def create
     @user = User.new(user_params)
     invitee = params[:invitee]
@@ -15,6 +17,7 @@ class UsersController < ApplicationController
     end
     if @user.save
       flash[:success] = "Welcome to Envios ya!"
+      UserMailer.welcome_email(@user).deliver_later
     else
        flash.now[:danger] =  @user.errors.messages[:document]
        byebug
@@ -30,6 +33,9 @@ class UsersController < ApplicationController
       return ""
     end
   end
+
+
+
 
   private
 

@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014170736) do
+ActiveRecord::Schema.define(version: 20171019220906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "drivers", force: :cascade do |t|
     t.string "name"
@@ -49,6 +54,8 @@ ActiveRecord::Schema.define(version: 20171014170736) do
     t.float "zipcode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "driver_id"
+    t.index ["driver_id"], name: "index_locations_on_driver_id"
   end
 
   create_table "shipments", force: :cascade do |t|
@@ -63,11 +70,17 @@ ActiveRecord::Schema.define(version: 20171014170736) do
     t.integer "origin"
     t.integer "destination"
     t.integer "driver"
+    t.bigint "driver_id"
+    t.bigint "sender_id"
+    t.bigint "receiver_id"
     t.index ["destination"], name: "index_shipments_on_destination"
     t.index ["driver"], name: "index_shipments_on_driver"
+    t.index ["driver_id"], name: "index_shipments_on_driver_id"
     t.index ["origin"], name: "index_shipments_on_origin"
     t.index ["receiver"], name: "index_shipments_on_receiver"
+    t.index ["receiver_id"], name: "index_shipments_on_receiver_id"
     t.index ["sender"], name: "index_shipments_on_sender"
+    t.index ["sender_id"], name: "index_shipments_on_sender_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -89,4 +102,8 @@ ActiveRecord::Schema.define(version: 20171014170736) do
     t.index ["invitee"], name: "index_users_on_invitee"
   end
 
+  add_foreign_key "locations", "drivers"
+  add_foreign_key "shipments", "drivers"
+  add_foreign_key "shipments", "users", column: "receiver_id"
+  add_foreign_key "shipments", "users", column: "sender_id"
 end
