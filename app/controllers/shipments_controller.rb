@@ -20,11 +20,8 @@ class ShipmentsController < ApplicationController
   
   def receive_locations
     list = params['markerList']
-    originLoc = create_location(list["0"]["lat"], list["0"]["lng"])
-    destinationLoc = create_location(list["1"]["lat"], list["1"]["lng"])
-    pp "hola", originLoc, destinationLoc
-    @shipment.origin = originLoc
-    @shipment.destination = destinationLoc
+    # @shipment.origin = create_location(list["0"]["lat"], list["0"]["lng"])
+    # @shipment.destination = create_location(list["1"]["lat"], list["1"]["lng"])
     calculate_price
     get_near_drivers
   end
