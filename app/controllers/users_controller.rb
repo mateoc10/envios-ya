@@ -15,12 +15,10 @@ class UsersController < ApplicationController
     end
     if @user.save
       flash[:success] = "Welcome to Envios ya!"
-      # render 'new'
     else
-      if :password != :password_confirmation 
-        flash.now[:danger] = "Passwords don't match"
-      end
-      render 'new'
+       flash.now[:danger] =  @user.errors.messages[:document]
+       byebug
+      # flash.now[:danger] = "Passwords don't match"
     end
   end
   

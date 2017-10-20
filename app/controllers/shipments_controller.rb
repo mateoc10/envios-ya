@@ -7,18 +7,26 @@ class ShipmentsController < ApplicationController
     @shipment = Shipment.new(shipment_params)
     origin = create_location(-34.881725, -56.073983)
     destination = create_location(-34.927254, -56.158236)
-    byebug
     @shipment.state = 'In Progress'
     @shipment.date = DateTime.now
     if @shipment.save
       flash.now[:success] = "Welcome to Envios ya!"
        render 'new'
     else
-      if :password != :password_confirmation 
-        flash.now[:danger] = "Passwords don't match"
-      end
+      flash.now[:danger] = :user.errors
       render 'new'
     end
+  end
+  
+  def receive_locations
+    list = params['markerList']
+    originLoc = create_location(list["0"]["lat"], list["0"]["lng"])
+    destinationLoc = create_location(list["1"]["lat"], list["1"]["lng"])
+    pp "hola", originLoc, destinationLoc
+    @shipment.origin = originLoc
+    @shipment.destination = destinationLoc
+    calculate_price
+    get_near_drivers
   end
 
   private
@@ -27,8 +35,16 @@ class ShipmentsController < ApplicationController
       params.require(:shipment).permit(:price, :payment, :date, :driver, :destination, :sender, :receiver, :origin)
     end
     
+    def calculate_price
+      @shipment.price = 100;
+    end
+    
+    def get_near_drivers
+      
+    end
+    
     def create_location(lat, lng)
-      geocode = JSON.parse Net::HTTP.get(URI.parse("https://maps.googleapis.com/maps/api/geocode/json?latlng="+ lat.to_s() +"," + lng.to_s() + "&key=AIzaSyCULAfBJit219O85L4mwt4nqVhBL9KARCQ"))
+      geocode = JSON.parse Net::HTTP.get(URI.parse("https://maps.googleapis.com/maps/api/geocode/json?latlng="+ lat +"," + lng + "&key=AIzaSyCULAfBJit219O85L4mwt4nqVhBL9KARCQ"))
       
       addresses = geocode["results"][0]["address_components"]
       number = ''
