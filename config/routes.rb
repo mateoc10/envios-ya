@@ -33,6 +33,12 @@ Rails.application.routes.draw do
   
   resources :admin
   get '/admins/create', to: 'admins#create'
+  post '/admins/approve', to: 'admins#approve'
+  post '/admins/reject', to: 'admins#reject'
+  
+  
+  
+  '/approve'
   
   
   

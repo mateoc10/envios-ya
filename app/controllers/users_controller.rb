@@ -20,7 +20,6 @@ class UsersController < ApplicationController
       UserMailer.welcome_email(@user).deliver_later
     else
        flash.now[:danger] =  @user.errors.messages[:document]
-       byebug
       # flash.now[:danger] = "Passwords don't match"
     end
   end
