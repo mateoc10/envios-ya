@@ -12,18 +12,20 @@
       <%= f.label 'Destination user email' %>
       <%= f.text_field :destination %>
       
+      <%= f.label 'Package weight' %>
+     
+      
+      <div>
+        <div id="map" style='width: 555px; height: 350px;' ></div>
+      </div>
+      
       <%= f.label :payment %>
       <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>
       
       <%= f.label :Driver %>
       <%= f.collection_select :driver, Driver.order(:name), :id, :name, {:prompt => @select_value, :selected => :id}%>
       
-      <!--<input id="submit" type="button" value="Reverse Geocode">-->
-      
       <%= f.label :Select_origin_and_destiny %>
-      <div>
-        <div id="map" style='width: 555px; height: 350px;' ></div>
-      </div>
 
       <%= f.submit "Create shipment", class: "btn btn-primary" %>
     <% end %>
@@ -31,6 +33,3 @@
 </div>
 
 <%= javascript_include_tag "shipments.js", "data-turbolinks-track" => true  %>
-<!-- <script type='text/javascript'>
-      
- </script> -->

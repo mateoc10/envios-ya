@@ -69,25 +69,6 @@
         markerList = [];
       }
       
-      // function geocodeLatLng(geocoder, map, infowindow, latlng) {
-      //   geocoder.geocode({'location': latlng}, function(results, status) {
-      //     if (status === 'OK') {
-      //       if (results[1]) {
-      //         var marker = new google.maps.Marker({
-      //           position: latlng,
-      //           map: map
-      //         });
-      //         infowindow.setContent(results[1].formatted_address);
-      //         infowindow.open(map, marker);
-      //       } else {
-      //         window.alert('No results found');
-      //       }
-      //     } else {
-      //       window.alert('Geocoder failed due to: ' + status);
-      //     }
-      //   });
-      // }
-      
       function sendLocations(markerList) {
         let originAndDestiny = [];
         originAndDestiny.push({ lat: markerList[0].position.lat(), lng: markerList[0].position.lng() });

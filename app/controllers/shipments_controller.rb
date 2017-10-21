@@ -33,7 +33,11 @@ class ShipmentsController < ApplicationController
     end
     
     def calculate_price
-      @shipment.price = 100;
+      conn = Faraday.new(url: 'https://delivery-rates.mybluemix.net/') 
+      conn.basic_auth('180121', 'EDQBtYNNP2H1')
+      areas = conn.get('/areas')
+      # RGeo::Geos.factory(:srid => 4326).parse_wkt(wkt_string)
+      price = conn.get('/cost')
     end
     
     def get_near_drivers
@@ -41,7 +45,7 @@ class ShipmentsController < ApplicationController
     end
     
     def create_location(lat, lng)
-      geocode = JSON.parse Net::HTTP.get(URI.parse("https://maps.googleapis.com/maps/api/geocode/json?latlng="+ lat +"," + lng + "&key=AIzaSyCULAfBJit219O85L4mwt4nqVhBL9KARCQ"))
+      geocode = JSON.parse Net::HTTP.get(URI.parse("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat +"," + lng + "&key=AIzaSyCULAfBJit219O85L4mwt4nqVhBL9KARCQ"))
       
       addresses = geocode["results"][0]["address_components"]
       number = ''
