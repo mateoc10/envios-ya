@@ -4,9 +4,6 @@ class ShipmentsController < ApplicationController
   end
   
   def create
-    @shipment = Shipment.new(shipment_params)
-    origin = create_location(-34.881725, -56.073983)
-    destination = create_location(-34.927254, -56.158236)
     @shipment.state = 'In Progress'
     @shipment.date = DateTime.now
     if @shipment.save
@@ -19,9 +16,12 @@ class ShipmentsController < ApplicationController
   end
   
   def receive_locations
+    @shipment = Shipment.new
     list = params['markerList']
     originLoc = create_location(list["0"]["lat"], list["0"]["lng"])
     destinationLoc = create_location(list["1"]["lat"], list["1"]["lng"])
+    originLoc.save
+    destinationLoc.save
     @shipment.origin = originLoc
     @shipment.destination = destinationLoc
     calculate_price
@@ -33,7 +33,9 @@ class ShipmentsController < ApplicationController
     driver1, driver2, driver3 = -1
     d1, d2, d3 = -1
     origin = GeoKit::Latlng.new(lat, lng)
-     Driver.all.each do |d|
+    allD = Driver.include(:location)
+    pp "allD", allD
+    allD.all.each do |d|
         distance = origin.distance_to(d.location.lat, d.location.long)
         if d3 != -1 && distance < d3
           if d2 != -1 && distance < d2

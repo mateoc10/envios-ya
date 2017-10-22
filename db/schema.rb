@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021193037) do
+ActiveRecord::Schema.define(version: 20171022181252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20171021193037) do
     t.string "documentation_content_type"
     t.integer "documentation_file_size"
     t.datetime "documentation_updated_at"
+    t.bigint "location_id"
+    t.index ["location_id"], name: "index_drivers_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -73,10 +75,14 @@ ActiveRecord::Schema.define(version: 20171021193037) do
     t.bigint "driver_id"
     t.bigint "sender_id"
     t.bigint "receiver_id"
+    t.bigint "origin_id"
+    t.bigint "destination_id"
     t.index ["destination"], name: "index_shipments_on_destination"
+    t.index ["destination_id"], name: "index_shipments_on_destination_id"
     t.index ["driver"], name: "index_shipments_on_driver"
     t.index ["driver_id"], name: "index_shipments_on_driver_id"
     t.index ["origin"], name: "index_shipments_on_origin"
+    t.index ["origin_id"], name: "index_shipments_on_origin_id"
     t.index ["receiver"], name: "index_shipments_on_receiver"
     t.index ["receiver_id"], name: "index_shipments_on_receiver_id"
     t.index ["sender"], name: "index_shipments_on_sender"
@@ -102,8 +108,11 @@ ActiveRecord::Schema.define(version: 20171021193037) do
     t.index ["invitee"], name: "index_users_on_invitee"
   end
 
+  add_foreign_key "drivers", "locations"
   add_foreign_key "locations", "drivers"
   add_foreign_key "shipments", "drivers"
+  add_foreign_key "shipments", "locations", column: "destination_id"
+  add_foreign_key "shipments", "locations", column: "origin_id"
   add_foreign_key "shipments", "users", column: "receiver_id"
   add_foreign_key "shipments", "users", column: "sender_id"
 end
