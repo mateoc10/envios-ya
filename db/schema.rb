@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20171022190810) do
     t.integer "documentation_file_size"
     t.datetime "documentation_updated_at"
     t.integer "location"
+    t.bigint "location_id"
     t.index ["location"], name: "index_drivers_on_location"
   end
 
@@ -106,6 +107,8 @@ ActiveRecord::Schema.define(version: 20171022190810) do
     t.index ["invitee"], name: "index_users_on_invitee"
   end
 
+
+  add_foreign_key "drivers", "locations"
   add_foreign_key "shipments", "drivers"
   add_foreign_key "shipments", "locations", column: "destination_id"
   add_foreign_key "shipments", "locations", column: "origin_id"
