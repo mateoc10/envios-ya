@@ -27,6 +27,7 @@ gem 'underscore-rails'
 gem 'ci_uy'
 gem 'mail'
 gem 'geokit'
+gem 'geocoder'
 
 
 # Use CoffeeScript for .coffee assets and views

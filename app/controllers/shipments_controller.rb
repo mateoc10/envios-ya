@@ -3,6 +3,10 @@ class ShipmentsController < ApplicationController
     @shipment = Shipment.new
   end
   
+  def details
+    pp 'ship', @shipment
+  end
+  
   def create
     @shipment.state = 'In Progress'
     @shipment.date = DateTime.now
@@ -25,48 +29,43 @@ class ShipmentsController < ApplicationController
     @shipment.origin = originLoc
     @shipment.destination = destinationLoc
     calculate_price
-    get_near_drivers(list["0"]["lat"], list["0"]["lng"])
+    @near_drivers = get_near_drivers(list["0"]["lat"], list["0"]["lng"])
   end
-  
   
   def get_near_drivers(lat, lng)
-    driver1, driver2, driver3 = -1
-    d1, d2, d3 = -1
-    origin = GeoKit::Latlng.new(lat, lng)
-    allD = Driver.include(:location)
-    pp "allD", allD
-    allD.all.each do |d|
-        distance = origin.distance_to(d.location.lat, d.location.long)
-        if d3 != -1 && distance < d3
-          if d2 != -1 && distance < d2
-            if d1 != -1 && distance < d1
-              d3 = d2 
-              driver3 = driver2
-              d2 = d1
-              driver2 = driver1
-              d1 = distance
-              driver1 = d.id
-            else
-              d3 = d2
-              driver3 = driver2
-              d2 = distance
-              driver2 = d.id
-            end
+    driver1, driver2, driver3 = nil
+    d1, d2, d3 = nil
+    Driver.includes(:location).all.each do |d|
+      distance = Geocoder::Calculations.distance_between([lat.to_f,lng.to_f], [d.location.lat,d.location.long])
+      if d3 == nil || distance < d3
+        if d2 == nil || distance < d2
+          if d1 == nil || distance < d1
+            d3 = d2 
+            driver3 = driver2
+            d2 = d1
+            driver2 = driver1
+            d1 = distance
+            driver1 = d
           else
-            d3 = distance
-            driver3 = d.id
+            d3 = d2
+            driver3 = driver2
+            d2 = distance
+            driver2 = d
           end
+        else
+          d3 = distance
+          driver3 = d
         end
       end
-    near_drivers = [driver1, driver2, driver3]
-    pp 'shoco', near_drivers
-    return near_drivers
-  end
+    end
+  near_drivers = [driver1, driver2, driver3]
+  return near_drivers
+end
 
   private
 
     def shipment_params
-      params.require(:shipment).permit(:price, :payment, :date, :driver, :destination, :sender, :receiver, :origin)
+      params.require(:shipment).permit(:price, :payment, :date, :driver, :destination, :sender, :receiver, :origin) #, :weight)
     end
     
     def calculate_price

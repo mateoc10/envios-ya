@@ -1,0 +1,28 @@
+<% provide(:title, 'Fill in the data') %>
+<h1>Fill in the information</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@shipment, url: shipments_create_path) do |f| %>
+    
+      <%= f.label "Origin" %>
+      
+      <%= f.label "Destination" %>
+      
+      <%= f.label 'Destination user email' %>
+      <%= f.text_field :destination %>
+      
+      <%= f.label :payment %>
+      <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>
+      
+      <%= f.label :drive %>
+      <%= f.select :driver, options_for_select(Drivers.first.name) %>
+      
+      <%= f.label "Price" %>
+      
+      <%= f.label "Weight" %>
+
+      <%= f.submit "Create shipment", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

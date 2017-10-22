@@ -75,6 +75,7 @@ GEM
     erubi (1.6.1)
     execjs (2.7.0)
     ffi (1.9.18)
+    geocoder (1.4.4)
     geokit (1.11.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
@@ -203,6 +204,7 @@ DEPENDENCIES
   capybara (~> 2.13)
   ci_uy
   coffee-rails (~> 4.2)
+  geocoder
   geokit
   gmaps4rails
   jbuilder (~> 2.5)
