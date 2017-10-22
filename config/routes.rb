@@ -36,9 +36,10 @@ Rails.application.routes.draw do
   post '/admins/approve', to: 'admins#approve'
   post '/admins/reject', to: 'admins#reject'
   
+  post '/reject', to: 'admins#reject'
   
   
-  '/approve'
+
   
   
   

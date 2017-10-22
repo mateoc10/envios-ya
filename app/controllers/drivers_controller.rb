@@ -6,7 +6,6 @@ class DriversController < ApplicationController
     @driver = Driver.new(driver_params)
     loc = Location.first
     @driver.location = loc
-    byebug
     if @driver.save
       flash[:success] = "Welcome to the Envios ya!"
       render 'new'
@@ -21,7 +20,7 @@ class DriversController < ApplicationController
   private
 
     def driver_params
-      params.require(:driver).permit(:name, :last_name, :document, :email, :password, :password_confirmation, :license, :avatar, :documentation)
+      params.require(:driver).permit(:name, :last_name, :document, :email, :password, :password_confirmation, :license, :avatar, :documentation, :location)
     end
   
   
