@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get 'drivers/new'
   get 'sessions/new'
   get 'admins/new'
+  get 'admins/confirm_driver'
+  get 'drivers/shipment_list'
+  get 'drivers/shipment'
 
   root 'layout#home'
   get 'users/new'
@@ -33,11 +36,13 @@ Rails.application.routes.draw do
   get '/shipment/details'
   
   resources :admin
-  get '/admins/create', to: 'admins#create'
-  post '/admins/approve', to: 'admins#approve'
-  post '/admins/reject', to: 'admins#reject'
+  # get '/admins/create', to: 'admins#create'
+  # post '/admins/approve', to: 'admins#approve'
+  # post '/admins/reject', to: 'admins#reject'
   
+  get '/admins/admins/create', to: 'admins#approve'
   post '/reject', to: 'admins#reject'
+  
   
   
 

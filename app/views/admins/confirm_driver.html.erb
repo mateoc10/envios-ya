@@ -9,12 +9,7 @@
     <%= f.collection_select :driver, Driver.order(:name), :id, :name,  {:prompt => @select_value, :selected => :id } %>
     
     
-    
-    <!--no se usa-->
-    
-    
-    
-    <%= f.button "Reject", class: "btn btn-primary" , link_to: '/admins/reject' %>
+    <%= f.button "Reject", class: "btn btn-primary" , link_to: reject_path %>
     
 
     <% end %>

@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 20171022190810) do
     t.integer "location"
     t.bigint "location_id"
     t.index ["location"], name: "index_drivers_on_location"
-    t.index ["location_id"], name: "index_drivers_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -107,6 +106,7 @@ ActiveRecord::Schema.define(version: 20171022190810) do
     t.boolean "new_user"
     t.index ["invitee"], name: "index_users_on_invitee"
   end
+
 
   add_foreign_key "drivers", "locations"
   add_foreign_key "shipments", "drivers"
