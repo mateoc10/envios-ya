@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20171022181252) do
-=======
 ActiveRecord::Schema.define(version: 20171022190810) do
->>>>>>> 59ff5b34c491a86f9e15c145f77823c9d00b2a1b
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,10 +44,8 @@ ActiveRecord::Schema.define(version: 20171022190810) do
     t.string "documentation_content_type"
     t.integer "documentation_file_size"
     t.datetime "documentation_updated_at"
-    t.bigint "location_id"
     t.integer "location"
     t.index ["location"], name: "index_drivers_on_location"
-    t.index ["location_id"], name: "index_drivers_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -112,8 +106,6 @@ ActiveRecord::Schema.define(version: 20171022190810) do
     t.index ["invitee"], name: "index_users_on_invitee"
   end
 
-  add_foreign_key "drivers", "locations"
-  add_foreign_key "locations", "drivers"
   add_foreign_key "shipments", "drivers"
   add_foreign_key "shipments", "locations", column: "destination_id"
   add_foreign_key "shipments", "locations", column: "origin_id"
