@@ -8,15 +8,10 @@
     <%= f.label :Drivers %>
     <%= f.collection_select :driver, Driver.order(:name), :id, :name,  {:prompt => @select_value, :selected => :id } %>
     
-    <!--<%= f.button "Approve", class: "btn btn-primary" , link_to: approve %>-->
-    <!--<%= f.button "Approve", class: "btn btn-primary" , link_to: reject %>-->
     
-    <!--<%= link_to 'app', '#top', class: 'approve'%>-->
-    <!--<%= link_to 'rej', '#top', class: 'reject'%>-->
+    <%= f.button "Reject", class: "btn btn-primary" , link_to: '/reject' %>
     
-    <%= link_to "Delete post", @post, remote: true, method: :post %>
 
-    
     <% end %>
 
   </div>

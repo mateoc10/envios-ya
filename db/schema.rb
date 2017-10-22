@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171021193037) do
+ActiveRecord::Schema.define(version: 20171022190810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,10 @@ ActiveRecord::Schema.define(version: 20171021193037) do
     t.string "documentation_content_type"
     t.integer "documentation_file_size"
     t.datetime "documentation_updated_at"
+    t.bigint "location_id"
+    t.integer "location"
+    t.index ["location"], name: "index_drivers_on_location"
+    t.index ["location_id"], name: "index_drivers_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -54,8 +58,6 @@ ActiveRecord::Schema.define(version: 20171021193037) do
     t.float "zipcode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "driver_id"
-    t.index ["driver_id"], name: "index_locations_on_driver_id"
   end
 
   create_table "shipments", force: :cascade do |t|
@@ -102,7 +104,7 @@ ActiveRecord::Schema.define(version: 20171021193037) do
     t.index ["invitee"], name: "index_users_on_invitee"
   end
 
-  add_foreign_key "locations", "drivers"
+  add_foreign_key "drivers", "locations"
   add_foreign_key "shipments", "drivers"
   add_foreign_key "shipments", "users", column: "receiver_id"
   add_foreign_key "shipments", "users", column: "sender_id"
