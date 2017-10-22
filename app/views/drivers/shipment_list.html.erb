@@ -3,33 +3,17 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+      <%= form_for(:admin, url: 'admins/create') do |f| %>
+          <%= f.label :Shipments_in_progress %>
+          <% @shipment_in_progress.each do |element| %>
+             <li><%= element %><button>ver</button></li>
+          <% end %>
+          
+          <%= f.label :Shipments_ended %>
+          <% @shipment_ended.each do |element| %>
+             <li><%= element.price %><button>ver</button></li>
+          <% end %>
       
-
-    <% @shipments.each do |shipment| %>
-        <h4>Origin</h4>
-        <label>
-            <%= shipment.origin.street></%> 
-            <%= shipment.origin.number></%>
-        </label>
-        <h4>Destination</h4>
-        <label>
-            <%= shipment.destination.street></%> 
-            <%= shipment.destination.number></%>
-        </label>
-        <label>
-            <%= shipment.price></%> 
-        </label>
-    <% end %>
-    <%= form_for(:admin, url: 'admins/create') do |f| %>
-    
-    <%= f.label :Drivers %>
-    <%= f.collection_select :driver, Driver.order(:name), :id, :name,  {:prompt => @select_value, :selected => :id } %>
-    
-    <!--<%= f.button "Approve", button_to: "/admins/approve" %>-->
-    <%= button_to 'si', approve(:id)  %>
-    
-    <%= f.button "Reject", class: "btn btn-primary" %>
-    
     <% end %>
 
   </div>

@@ -1,0 +1,17 @@
+<% provide(:title, "Shipment") %>
+<h1>Shipment</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+      <%= form_for(:admin, url: 'admins/create') do |f| %>
+          
+          <%= f.label :Sender_email %>
+          <%= f.label :Destination_email%>
+          <%= f.label :Origin %>
+          <%= f.label :Destination %>
+          <%= f.label :Price %>
+          <%= f.label :Payment_method %>
+          
+    <% end %>
+  </div>
+</div>
