@@ -1,5 +1,5 @@
 class Location < ApplicationRecord
-  belongs_to :driver
-  belongs_to :shipment
-  belongs_to :shipment
+  has_one :shipment
+  has_one :driver
+  has_one :shipment
 end

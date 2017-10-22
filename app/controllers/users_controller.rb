@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     end
     if @user.save
       flash[:success] = "Welcome to Envios ya!"
-      UserMailer.welcome_email(@user).deliver_later
+      UserMailer.welcome_email(@user).deliver_now
     else
        flash.now[:danger] =  @user.errors.messages[:document]
       # flash.now[:danger] = "Passwords don't match"

@@ -18,6 +18,6 @@ class Driver < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
     
-  has_one :location
-  belongs_to :shipments
+  belongs_to :locations
+  has_one :shipments
 end

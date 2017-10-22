@@ -15,11 +15,11 @@
       <%= f.label :payment %>
       <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>
       
-      <%= f.label :Driver %>
-      <%= f.collection_select :driver, Driver.order(:name), :id, :name, {:prompt => @select_value, :selected => :id}%>
-      
-      <!--<input id="submit" type="button" value="Reverse Geocode">-->
-      
+      <% if @near_drivers %>
+      <%= f.label :driver %>
+      <%= f.select :driver, @near_drivers %>
+      <%end%>
+
       <%= f.label :Select_origin_and_destiny %>
       <div>
         <div id="map" style='width: 555px; height: 350px;' ></div>
