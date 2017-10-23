@@ -3,30 +3,16 @@
 <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script> <!-- only if you need custom infoboxes -->
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
-<% provide(:title, 'Sign up') %>
-<h1>Shipment</h1>
+<% provide(:title, 'Map') %>
+<h1>Select origin and destination</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@shipment, url: shipments_create_path) do |f| %>
-      <%= f.label 'Destination user email' %>
-      <%= f.text_field :destination %>
-      
-      <%= f.label :payment %>
-      <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>
-      
-      <% if @near_drivers %>
-      <%= f.label :driver %>
-      <%= f.select :driver, @near_drivers %>
-      <%end%>
-
-      <%= f.label :Select_origin_and_destiny %>
-      <div>
-        <div id="map" style='width: 555px; height: 350px;' ></div>
-      </div>
-
-      <%= f.submit "Create shipment", class: "btn btn-primary" %>
-    <% end %>
+    <div>
+      <div id="map" style='width: 555px; height: 350px;' ></div>
+    </div>
+    
+    <%= link_to "Continue", shipment_details_path, class: "btn btn-lg btn-primary col-md-12" %>
   </div>
 </div>
 
