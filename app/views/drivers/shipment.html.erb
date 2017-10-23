@@ -3,14 +3,36 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-      <%= form_for(:admin, url: 'admins/create') do |f| %>
+        <%= form_for(:driver, url: '') do |f| %>
           
+          <%= f.label :Id %>
+          <%= @shipment.id%>
+          <br>
           <%= f.label :Sender_email %>
-          <%= f.label :Destination_email%>
+          <%= @shipment.sender.email%>
+          <br>
+          <%= f.label :Destination_email %>
+          <%= @shipment.receiver.email%>
+          <br>
+          <%= f.label :date%>
+          <%= @shipment.date%>
+          <br>
           <%= f.label :Origin %>
+          <%= @shipment.origin.street%>,
+          <%= @shipment.origin.number%>,
+          <%= @shipment.origin.zipcode%>
+          <br>
           <%= f.label :Destination %>
+          <%= @shipment.destination.street%>,
+          <%= @shipment.origin.number%>,
+          <%= @shipment.origin.zipcode%>
+          <br>
           <%= f.label :Price %>
+          <%= @shipment.price%>
+          <br>
           <%= f.label :Payment_method %>
+          <%= @shipment.payment%>
+          
           
     <% end %>
   </div>

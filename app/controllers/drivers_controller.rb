@@ -1,8 +1,13 @@
 class DriversController < ApplicationController
   
   def shipment_list
-     @shipment_in_progress = Shipment.where(:price => 2323) #cambiar por estado y filtrar solo los de este driver
-     @shipment_ended = Shipment.where(:price => 78)
+     @shipment_in_progress = Shipment.where(:state => 'In progress') #cambiar por estado y filtrar solo los de este driver
+     @shipment_deliveder = Shipment.where(:state => 'Delivered')
+  end
+  
+  def shipment
+    @shipment = Shipment.find_by_id(params[:id])
+    render '../views/drivers/shipment'
   end
   
   def new

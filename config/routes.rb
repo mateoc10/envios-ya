@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'admins/confirm_driver'
   get 'drivers/shipment_list'
   get 'drivers/shipment'
+  post 'drivers/shipment'
 
   root 'layout#home'
   get 'users/new'
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
   resources :drivers
   get '/drivers/signup', to: 'drivers#new'
   post '/drivers/signup', to: 'drivers#create'
-  
+  get 'drivers/shipment',  to: 'drivers#shipment'
   get    '/drivers_session/login',   to: 'driver_sessions#new'
   post   '/drivers_session/login',   to: 'driver_sessions#create' 
   
@@ -35,12 +36,12 @@ Rails.application.routes.draw do
   post '/shipments/sendLocations', to: 'shipments#receive_locations'
   
   resources :admin
-  # get '/admins/create', to: 'admins#create'
-  # post '/admins/approve', to: 'admins#approve'
-  # post '/admins/reject', to: 'admins#reject'
+   get '/admins/create', to: 'admins#create'
+   post '/admins/approve', to: 'admins#approve'
+   post '/admins/reject', to: 'admins#reject'
   
-  get '/admins/admins/create', to: 'admins#approve'
-  post '/reject', to: 'admins#reject'
+  #get '/admins/admins/create', to: 'admins#approve'
+  #post '/reject', to: 'admins#reject'
   
   
   

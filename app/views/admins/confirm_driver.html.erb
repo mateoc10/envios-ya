@@ -3,13 +3,13 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:admin, url: 'admins/create') do |f| %>
+    <%= form_for(:admin, url: admins_approve_path) do |f| %>
     
     <%= f.label :Drivers %>
     <%= f.collection_select :driver, Driver.order(:name), :id, :name,  {:prompt => @select_value, :selected => :id } %>
     
-    
-    <%= f.button "Reject", class: "btn btn-primary" , link_to: reject_path %>
+    <%= f.button "Approve", class: "btn btn-primary" , link_to: 'admins/approve'  %>
+    <%= f.button "Reject", class: "btn btn-primary" , link_to: 'admins/reject'  %>
     
 
     <% end %>
