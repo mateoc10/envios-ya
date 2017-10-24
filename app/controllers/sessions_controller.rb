@@ -6,10 +6,11 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       log_in user
+      remember user
       # redirect_to user
       # we really should redirect to the main page inside the app
       flash.now[:success] = 'You are logged in'
-      render 'new'
+      redirect_to '/shipments/new'
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
@@ -17,5 +18,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    log_out
+    redirect_to root_url
   end
 end

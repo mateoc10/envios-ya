@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171022190810) do
+ActiveRecord::Schema.define(version: 20171024231847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20171022190810) do
     t.integer "location"
     t.bigint "location_id"
     t.index ["location"], name: "index_drivers_on_location"
+    t.index ["location_id"], name: "index_drivers_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -104,9 +105,9 @@ ActiveRecord::Schema.define(version: 20171022190810) do
     t.integer "invitee"
     t.integer "discounts"
     t.boolean "new_user"
+    t.string "remember_digest"
     t.index ["invitee"], name: "index_users_on_invitee"
   end
-
 
   add_foreign_key "drivers", "locations"
   add_foreign_key "shipments", "drivers"
