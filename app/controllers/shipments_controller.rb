@@ -4,7 +4,11 @@ class ShipmentsController < ApplicationController
   end
   
   def details
-    pp 'ship', @shipment
+    @Shipment = Shipment.new
+    @halfShipment = params[:shipment]
+    @near_drivers = params[:nearDrivers]
+    pp "ship", @halfShipment, @near_drivers
+    render "../views/shipments/shipment_details"
   end
   
   def create
@@ -26,9 +30,9 @@ class ShipmentsController < ApplicationController
     destinationLoc = create_location(list["1"]["lat"], list["1"]["lng"])
     originLoc.save
     destinationLoc.save
-    @shipment.origin = originLoc
-    @shipment.destination = destinationLoc
-    calculate_price
+    @origin = originLoc
+    @destination = destinationLoc
+    @price = calculate_price
     @near_drivers = get_near_drivers(list["0"]["lat"], list["0"]["lng"])
   end
   
