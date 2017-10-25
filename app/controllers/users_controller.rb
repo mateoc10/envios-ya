@@ -16,8 +16,10 @@ class UsersController < ApplicationController
       @user.discounts = 1
     end
     if @user.save
+      log_in @user
       flash[:success] = "Welcome to Envios ya!"
-      UserMailer.welcome_email(@user).deliver_later
+      UserMailer.welcome_email(@user).deliver_now
+      redirect_to '/shipments/new'
     else
        flash.now[:danger] =  @user.errors.messages[:document]
       # flash.now[:danger] = "Passwords don't match"

@@ -1,12 +1,14 @@
 <footer class="footer">
   <small>
-    The best way yo take things wherever you want
+    The best way to take things wherever you want
   </small>
   <nav>
     <ul>
-      <li> Are you a driver?</li>
-      <li><%= link_to "Login", '/drivers_session/login' %></li>
-      <li><%= link_to "Signup", '/drivers/new' %></li>
+      <% if !logged_in? %>
+        <li> Are you a driver?</li>
+        <li><%= link_to "Login", '/drivers_session/login' %></li>
+        <li><%= link_to "Signup", '/drivers/new' %></li>
+      <% end %>
     </ul>
   </nav>
 </footer>
