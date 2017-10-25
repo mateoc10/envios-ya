@@ -28,6 +28,8 @@ gem 'ci_uy'
 gem 'mail'
 gem 'geokit'
 gem 'geocoder'
+gem 'rgeo'
+gem 'activerecord-postgis-adapter'
 
 
 # Use CoffeeScript for .coffee assets and views

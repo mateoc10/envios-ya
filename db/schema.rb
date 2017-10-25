@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 20171025124915) do
     t.integer "location"
     t.bigint "location_id"
     t.index ["location"], name: "index_drivers_on_location"
-    t.index ["location_id"], name: "index_drivers_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
