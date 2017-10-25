@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'drivers/shipment_list'
   get 'drivers/shipment'
   post 'drivers/shipment'
+  get 'shipments/details'
 
   root 'layout#home'
   get 'users/new'
@@ -36,7 +37,7 @@ Rails.application.routes.draw do
   get '/shipments/create', to: 'shipments#new'
   post '/shipments/create', to: 'shipments#create'
   post '/shipments/sendLocations', to: 'shipments#receive_locations'
-  get '/shipment/details'
+  get '/shipment/details', to: 'shipments#details'
   
   resources :admin
   

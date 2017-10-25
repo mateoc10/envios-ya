@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024231847) do
+ActiveRecord::Schema.define(version: 20171025124915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,8 @@ ActiveRecord::Schema.define(version: 20171024231847) do
     t.bigint "receiver_id"
     t.bigint "origin_id"
     t.bigint "destination_id"
+    t.float "weight"
+    t.string "status"
     t.index ["destination"], name: "index_shipments_on_destination"
     t.index ["destination_id"], name: "index_shipments_on_destination_id"
     t.index ["driver"], name: "index_shipments_on_driver"

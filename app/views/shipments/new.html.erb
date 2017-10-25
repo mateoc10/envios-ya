@@ -12,7 +12,7 @@
       <div id="map" style='width: 555px; height: 350px;' ></div>
     </div>
     
-    <%= link_to "Continue", shipment_details_path, class: "btn btn-lg btn-primary col-md-12" %>
+    <%= link_to "Continue", shipment_details_path(@origin, @destination, @price, @near_drivers), class: "btn btn-lg btn-primary col-md-12" %>
   </div>
 </div>
 

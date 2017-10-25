@@ -1,21 +1,33 @@
 class ShipmentsController < ApplicationController
+  
+  before_action :init_shipment
+  
+  def init_shipment
+    @Shipment ||= Shipment.new
+  end
+  
   def new
     @shipment = Shipment.new
   end
   
   def details
-    pp 'ship', @shipment
+    pp @Shipment
+    @Shipment.origin = Location.first
+    @Shipment.destination = Location.second
+    @Shipment.price = 100
+    # @halfShipment = params[:shipment]
+    @near_drivers = [Driver.first.name, Driver.second.name, Driver.third.name] #params[:nearDrivers]
+    @Shipment.status = 'In Progress'
+    @Shipment.date = DateTime.now
+    render "../views/shipments/shipment_details"
   end
   
   def create
-    @shipment.state = 'In Progress'
-    @shipment.date = DateTime.now
-    if @shipment.save
+    pp 'ship', @Shipment
+    if @Shipment.save
       flash.now[:success] = "Welcome to Envios ya!"
-       render 'new'
     else
-      flash.now[:danger] = :user.errors
-      render 'new'
+      flash.now[:danger] = 'error'#:shipments.errors
     end
   end
   
@@ -26,9 +38,9 @@ class ShipmentsController < ApplicationController
     destinationLoc = create_location(list["1"]["lat"], list["1"]["lng"])
     originLoc.save
     destinationLoc.save
-    @shipment.origin = originLoc
-    @shipment.destination = destinationLoc
-    calculate_price
+    @origin = originLoc
+    @destination = destinationLoc
+    @price = calculate_price
     @near_drivers = get_near_drivers(list["0"]["lat"], list["0"]["lng"])
   end
   
@@ -65,7 +77,7 @@ end
   private
 
     def shipment_params
-      params.require(:shipment).permit(:price, :payment, :date, :driver, :destination, :sender, :receiver, :origin) #, :weight)
+      params.require(:shipment).permit(:price, :payment, :date, :driver, :destination, :sender, :receiver, :origin, :weight)
     end
     
     def calculate_price
