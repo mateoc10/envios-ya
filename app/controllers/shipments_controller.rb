@@ -1,10 +1,17 @@
 class ShipmentsController < ApplicationController
+  
+  before_action :init_shipment
+  
+  def init_shipment
+    @Shipment ||= Shipment.new
+  end
+  
   def new
     @shipment = Shipment.new
   end
   
   def details
-    @Shipment = Shipment.new
+    pp @Shipment
     @Shipment.origin = Location.first
     @Shipment.destination = Location.second
     @Shipment.price = 100
@@ -16,12 +23,11 @@ class ShipmentsController < ApplicationController
   end
   
   def create
-    if @shipment.save
+    pp 'ship', @Shipment
+    if @Shipment.save
       flash.now[:success] = "Welcome to Envios ya!"
-       render 'new'
     else
-      flash.now[:danger] = :user.errors
-      render 'new'
+      flash.now[:danger] = 'error'#:shipments.errors
     end
   end
   
