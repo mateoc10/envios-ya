@@ -11,18 +11,22 @@ class ShipmentsController < ApplicationController
   end
   
   def details
-    pp @Shipment
     @Shipment.origin = Location.first
     @Shipment.destination = Location.second
     @Shipment.price = 100
     # @halfShipment = params[:shipment]
     @near_drivers = [Driver.first.name, Driver.second.name, Driver.third.name] #params[:nearDrivers]
-    @Shipment.status = 'In Progress'
-    @Shipment.date = DateTime.now
     render "../views/shipments/shipment_details"
   end
   
   def create
+    @Shipment = Shipment.new
+    @Shipment.origin = Location.first
+    @Shipment.destination = Location.second
+    @Shipment.price = 100
+    @Shipment.status = 'In Progress'
+    @Shipment.date = DateTime.now
+    @Shipment.sender = current_user
     pp 'ship', @Shipment
     if @Shipment.save
       flash.now[:success] = "Welcome to Envios ya!"

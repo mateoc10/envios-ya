@@ -1,5 +1,14 @@
 {
   "name": "obligatorio-arq",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "ssh://git@bitbucket.org/mateoc10/enviosya.git",
+  "author": "mateoc10 <mateoc10@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.3"
+  }
 }

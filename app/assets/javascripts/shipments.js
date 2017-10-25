@@ -24,7 +24,7 @@
       // Adds a marker to the map and push to the array.
       function addMarker(location) {
         
-        let markerLabel = "";
+        var markerLabel = "";
         if(markerList.length == 0) {
           markerLabel = "Origin";
         } else if (markerList.length == 1) {
@@ -89,7 +89,7 @@
       // }
       
       function sendLocations(markerList) {
-        let originAndDestiny = [];
+        var originAndDestiny = [];
         originAndDestiny.push({ lat: markerList[0].position.lat(), lng: markerList[0].position.lng() });
         originAndDestiny.push({ lat: markerList[1].position.lat(), lng: markerList[1].position.lng() });
         $.ajax({
