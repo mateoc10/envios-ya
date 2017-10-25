@@ -1,26 +1,36 @@
-<% provide(:title, 'Fill in the data') %>
-<h1>Fill in the information</h1>
+<% provide(:title, 'Shipment details') %>
+<h1>Shipment details</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@shipment, url: shipments_create_path) do |f| %>
+    <%= form_for(@Shipment, url: shipments_create_path(:ship => @shipment)) do |f| %>
     
       <%= f.label "Origin" %>
+        <%= @Shipment.origin.street %>, 
+        <%= @Shipment.origin.number %>
+      <br>
       
-      <%= f.label "Destination" %>
+      <%= f.label "Destination" %> 
+        <%= @Shipment.destination.street %>, 
+        <%= @Shipment.destination.number %>
+      <br>
       
-      <%= f.label 'Destination user email' %>
-      <%= f.text_field :destination %>
+      <%= f.label "receiver's user email" %>
+      <%= f.text_field :receiver %>
       
       <%= f.label :payment %>
       <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>
       
       <%= f.label :drive %>
-      <%= f.select :driver, options_for_select(Drivers.first.name) %>
+      <%= f.select :driver, options_for_select(@near_drivers) %>
+      
+      <%= f.label 'Weight' %>
+      <%= f.text_field :weight %>
       
       <%= f.label "Price" %>
+      <%= @Shipment.price%>
       
-      <%= f.label "Weight" %>
+
 
       <%= f.submit "Create shipment", class: "btn btn-primary" %>
     <% end %>
