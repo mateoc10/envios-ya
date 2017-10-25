@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = "Welcome to Envios ya!"
-      UserMailer.welcome_email(@user).deliver_now
+      #UserMailer.welcome_email(@user).deliver_now
       redirect_to '/shipments/new'
     else
        flash.now[:danger] =  @user.errors.messages[:document]
