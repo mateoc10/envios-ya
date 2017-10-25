@@ -10,6 +10,10 @@ helper_method :reject
         flash[:success] = "Welcome to Envios ya!"
     end
     
+    def confrim_driver
+    end
+    
+    
     def approve()
       d = Driver.find_by_id(1)
       d['active'] = true

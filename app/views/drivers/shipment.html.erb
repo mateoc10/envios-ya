@@ -30,8 +30,16 @@
           <%= f.label :Price %>
           <%= @shipment.price%>
           <br>
+          <%= f.label :State %>
+          <%= @shipment.state%>
+          <br>
           <%= f.label :Payment_method %>
           <%= @shipment.payment%>
+          <br>
+          
+          <% if @shipment.state == 'In progress' %>
+          <%= link_to 'End shipment',drivers_shipment_path(:id => @shipment.id), class: 'btn btn-primary'%>
+          <%end%>
           
           
     <% end %>

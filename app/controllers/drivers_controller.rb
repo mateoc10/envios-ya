@@ -10,9 +10,16 @@ class DriversController < ApplicationController
     render '../views/drivers/shipment'
   end
   
+  def end_shipment(id)
+    @ship = Shipment.find_by_id(id)
+    @ship.state = 'Delivered'
+    @ship.save
+  end
+  
   def new
      @driver = Driver.new
   end
+  
   def create
     @driver = Driver.new(driver_params)
     loc = Location.first
