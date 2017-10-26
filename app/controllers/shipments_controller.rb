@@ -7,10 +7,13 @@ class ShipmentsController < ApplicationController
   end
   
   def new
+    puts params[:hola]
     @shipment = Shipment.new
   end
   
   def details
+    puts params[:origin]
+    puts params[:destination]
     @Shipment.origin = Location.first
     @Shipment.destination = Location.second
     @Shipment.price = 100
@@ -73,10 +76,10 @@ class ShipmentsController < ApplicationController
           driver3 = d
         end
       end
-    end
-  near_drivers = [driver1, driver2, driver3]
-  return near_drivers
-end
+      end
+    near_drivers = [driver1, driver2, driver3]
+    return near_drivers
+  end
 
   private
 

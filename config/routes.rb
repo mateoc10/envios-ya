@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   get '/shipments/create', to: 'shipments#new'
   post '/shipments/create', to: 'shipments#create'
   post '/shipments/sendLocations', to: 'shipments#receive_locations'
-  get '/shipment/details', to: 'shipments#details'
+  post '/shipment/details', to: 'shipments#details'
   
   resources :admin
   

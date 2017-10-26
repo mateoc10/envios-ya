@@ -11,8 +11,11 @@
     <div>
       <div id="map" style='width: 555px; height: 350px;' ></div>
     </div>
-    
-    <%= link_to "Continue", shipment_details_path(@origin, @destination, @price, @near_drivers), class: "btn btn-lg btn-primary col-md-12" %>
+    <%= form_tag(shipment_details_path) do %>
+      <%= text_field_tag 'origin' %>
+      <%= text_field_tag 'destination' %>      
+      <div><%= submit_tag 'Save' %></div>
+    <% end %>
   </div>
 </div>
 
