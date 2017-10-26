@@ -22,13 +22,10 @@
       <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>
       
       <%= f.label :drive %>
-      <%= f.select :driver, options_for_select(@near_drivers) %>
+      <%= f.collection_select :driver, @near_drivers, :id, :name,  {:prompt => @select_value, :selected => :id } %>
       
       <%= f.label 'Weight' %>
       <%= f.text_field :weight %>
-      
-      <%= f.label "Price" %>
-      <%= @Shipment.price%>
       
 
 

@@ -12,13 +12,15 @@ class ShipmentsController < ApplicationController
   end
   
   def details
-    puts params[:origin]
-    puts params[:destination]
-    @Shipment.origin = Location.first
-    @Shipment.destination = Location.second
-    @Shipment.price = 100
+    
+    originLoc = create_location(params[:originLat], params[:originLng])
+    destinationLoc = create_location(params[:destinationLat], params[:destinationLng])
+    originLoc.save
+    destinationLoc.save
+    @Shipment.origin = originLoc
+    @Shipment.destination = destinationLoc
     # @halfShipment = params[:shipment]
-    @near_drivers = [Driver.first.name, Driver.second.name, Driver.third.name] #params[:nearDrivers]
+    @near_drivers = get_near_drivers(params[:originLat], params[:originLng])
     render "../views/shipments/shipment_details"
   end
   
@@ -41,10 +43,7 @@ class ShipmentsController < ApplicationController
   def receive_locations
     @shipment = Shipment.new
     list = params['markerList']
-    originLoc = create_location(list["0"]["lat"], list["0"]["lng"])
-    destinationLoc = create_location(list["1"]["lat"], list["1"]["lng"])
-    originLoc.save
-    destinationLoc.save
+    
     @origin = originLoc
     @destination = destinationLoc
     @price = calculate_price

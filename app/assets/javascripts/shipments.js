@@ -1,8 +1,4 @@
     var markerList = [];
-
-    // handler = Gmaps.build('Google');
-    // handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    // });
     
     
       var map;
@@ -69,26 +65,13 @@
         markerList = [];
       }
       
-      // function geocodeLatLng(geocoder, map, infowindow, latlng) {
-      //   geocoder.geocode({'location': latlng}, function(results, status) {
-      //     if (status === 'OK') {
-      //       if (results[1]) {
-      //         var marker = new google.maps.Marker({
-      //           position: latlng,
-      //           map: map
-      //         });
-      //         infowindow.setContent(results[1].formatted_address);
-      //         infowindow.open(map, marker);
-      //       } else {
-      //         window.alert('No results found');
-      //       }
-      //     } else {
-      //       window.alert('Geocoder failed due to: ' + status);
-      //     }
-      //   });
-      // }
       
       function sendLocations(markerList) {
+        $('#originLat').val(markerList[0].position.lat().toString());
+        $('#originLng').val(markerList[0].position.lng().toString());
+        $('#destinationLat').val(markerList[1].position.lat().toString());
+        $('#destinationLng').val(markerList[1].position.lng().toString());
+        
         var originAndDestiny = [];
         originAndDestiny.push({ lat: markerList[0].position.lat(), lng: markerList[0].position.lng() });
         originAndDestiny.push({ lat: markerList[1].position.lat(), lng: markerList[1].position.lng() });
@@ -118,3 +101,12 @@
           console.log('marcho el reset');
         });
       }
+      
+      $(document).ready(function() {
+        $("input#zipfile").change(function() {
+        $.ajax({
+            url: "/progress_create",
+            type: "GET"
+            })
+        });
+      })
