@@ -36,24 +36,26 @@ class ShipmentsController < ApplicationController
     @Shipment.driver = Driver.find_by_id(params[:shipment][:driver])
     @Shipment.price = 100
     
-    if current_user.discounts > 0
+    @user = User.find_by_id(current_user.id)
+    
+    if @user.discounts > 0
       @Shipment.price = @Shipment.price / 2
-      current_user.discounts = (current_user.discounts - 1)
-      current_user.save
+      @user.discounts -= 1
+      @user.save(validate: false)
     end
     
+    pp "first", current_user
     if current_user.new_user
       if current_user.invitee != nil
-        invitee = User.find_by_id(current_user.invitee)
-        invitee.discounts += 1
-        invitee.save
+        @invitee = User.find_by_id(current_user.invitee)
+        @invitee.discounts = @invitee.discounts + 1
+        @invitee.save(validate: false)
       end
-      current_user.new_user = false
-      current_user.save
-      pp 
+      @user.new_user = false
+      @user.save(validate: false)
     end
     
-    pp "sender", current_user
+    pp "second", current_user
     
     receiver = User.find_by_email(params[:receiver])
     if receiver != nil
