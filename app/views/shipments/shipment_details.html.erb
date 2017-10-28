@@ -8,15 +8,19 @@
       <%= f.label "Origin" %>
         <%= @Shipment.origin.street %>, 
         <%= @Shipment.origin.number %>
+        <%= text_field_tag 'originLat', @Shipment.origin.lat %>
+        <%= text_field_tag 'originLng', @Shipment.origin.long %>
       <br>
       
       <%= f.label "Destination" %> 
         <%= @Shipment.destination.street %>, 
         <%= @Shipment.destination.number %>
+        <%= text_field_tag 'destinationLat', @Shipment.destination.lat%>
+        <%= text_field_tag 'destinationLng', @Shipment.destination.long %>
       <br>
       
       <%= f.label "receiver's user email" %>
-      <%= f.text_field :receiver %>
+      <%= text_field_tag 'receiver' %>
       
       <%= f.label :payment %>
       <%= f.select :payment, options_for_select([["I pay"], ["He pays"], ["Both"]]) %>

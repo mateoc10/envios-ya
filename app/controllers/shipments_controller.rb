@@ -7,7 +7,6 @@ class ShipmentsController < ApplicationController
   end
   
   def new
-    puts params[:hola]
     @shipment = Shipment.new
   end
   
@@ -15,8 +14,6 @@ class ShipmentsController < ApplicationController
     
     originLoc = create_location(params[:originLat], params[:originLng])
     destinationLoc = create_location(params[:destinationLat], params[:destinationLng])
-    originLoc.save
-    destinationLoc.save
     @Shipment.origin = originLoc
     @Shipment.destination = destinationLoc
     # @halfShipment = params[:shipment]
@@ -25,13 +22,36 @@ class ShipmentsController < ApplicationController
   end
   
   def create
-    @Shipment = Shipment.new
-    @Shipment.origin = Location.first
-    @Shipment.destination = Location.second
+    pp "params", params
+    @Shipment = Shipment.new(user_params)
+    originLoc = create_location(params[:originLat], params[:originLng])
+    destinationLoc = create_location(params[:destinationLat], params[:destinationLng])
+    originLoc.save
+    destinationLoc.save
+    @Shipment.origin = originLoc
+    @Shipment.destination = destinationLoc
     @Shipment.price = 100
-    @Shipment.status = 'In Progress'
+    @Shipment.state = 'In Progress'
     @Shipment.date = DateTime.now
     @Shipment.sender = current_user
+    @Shipment.driver = Driver.find_by_id(params[:shipment][:driver])
+    
+    receiver = User.find_by_email(params[:receiver])
+    pp 'receiver', receiver
+    if receiver != nil
+      @Shipment.receiver = receiver
+      pp 'existe', receiver
+    else 
+      receiver = User.new do |u|
+        u.email = params[:receiver]
+        u.name = "a"
+        u.password = "12345678"
+      end
+      receiver.save
+      pp 'no existe', receiver
+      @Shipment.receiver = receiver
+      # enviar mail
+    end
     pp 'ship', @Shipment
     if @Shipment.save
       flash.now[:success] = "Welcome to Envios ya!"
@@ -81,10 +101,6 @@ class ShipmentsController < ApplicationController
   end
 
   private
-
-    def shipment_params
-      params.require(:shipment).permit(:price, :payment, :date, :driver, :destination, :sender, :receiver, :origin, :weight)
-    end
     
     def calculate_price
       @shipment.price = 100;
@@ -107,5 +123,9 @@ class ShipmentsController < ApplicationController
         end
       }
       return Location.new(lat: lat, long: lng, street: address, number: number, zipcode: zipcode)
+    end
+    
+    def user_params
+      params.require(:shipment).permit(:weight, :payment)
     end
 end
