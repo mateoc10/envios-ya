@@ -30,17 +30,34 @@ class ShipmentsController < ApplicationController
     destinationLoc.save
     @Shipment.origin = originLoc
     @Shipment.destination = destinationLoc
-    @Shipment.price = 100
     @Shipment.state = 'In Progress'
     @Shipment.date = DateTime.now
     @Shipment.sender = current_user
     @Shipment.driver = Driver.find_by_id(params[:shipment][:driver])
+    @Shipment.price = 100
+    
+    if current_user.discounts > 0
+      @Shipment.price = @Shipment.price / 2
+      current_user.discounts = (current_user.discounts - 1)
+      current_user.save
+    end
+    
+    if current_user.new_user
+      if current_user.invitee != nil
+        invitee = User.find_by_id(current_user.invitee)
+        invitee.discounts += 1
+        invitee.save
+      end
+      current_user.new_user = false
+      current_user.save
+      pp 
+    end
+    
+    pp "sender", current_user
     
     receiver = User.find_by_email(params[:receiver])
-    pp 'receiver', receiver
     if receiver != nil
       @Shipment.receiver = receiver
-      pp 'existe', receiver
     else 
       receiver = User.new do |u|
         u.email = params[:receiver]
@@ -48,13 +65,11 @@ class ShipmentsController < ApplicationController
         u.password = "12345678"
       end
       receiver.save
-      pp 'no existe', receiver
       @Shipment.receiver = receiver
       UserMailer.welcome_email(@Shipment.receiver.email, @Shipment.sender.id).deliver_now
     end
-    pp 'ship', @Shipment
     if @Shipment.save
-      flash.now[:success] = "Welcome to Envios ya!"
+      flash.now[:success] = "Success!"
     else
       flash.now[:danger] = 'error'#:shipments.errors
     end

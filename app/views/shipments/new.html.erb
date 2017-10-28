@@ -12,10 +12,10 @@
       <div id="map" style='width: 555px; height: 350px;' ></div>
     </div>
     <%= form_tag(shipment_details_path) do %>
-      <%= text_field_tag 'originLat' %>
-      <%= text_field_tag 'originLng' %>
-      <%= text_field_tag 'destinationLat' %>
-      <%= text_field_tag 'destinationLng' %>
+      <%= hidden_field_tag 'originLat' %>
+      <%= hidden_field_tag 'originLng' %>
+      <%= hidden_field_tag 'destinationLat' %>
+      <%= hidden_field_tag 'destinationLng' %>
       <div><%= submit_tag 'Save' %></div>
     <% end %>
   </div>
