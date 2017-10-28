@@ -6,12 +6,67 @@
     <%= form_for(:admin, url: '') do |f| %>
     
     <%= f.label :Drivers %>
-    <%= f.collection_select :driver, Driver.order(:name), :id, :name,  {:prompt => @select_value, :selected => :id } %>
+    <%= f.collection_select :driver, @nil_drivers, :id, :name,  {:prompt => @select_value, :selected => :id } %>
     
-    <%= link_to "Approve", approve_path, :class => 'btn btn-primary'%>
-    <%= link_to "Reject", reject_path, :class => 'btn btn-primary'%>
+    <button class="btn btn-primary" onclick="approve()">Approve</button>
+    <button class="btn btn-primary" onclick="reject()">Reject</button>
 
     <% end %>
 
   </div>
 </div>
+
+<!--<script>-->
+<!--function approve(){-->
+<!--    $.ajax({-->
+<!--        url: '/admins/approve',-->
+<!--        headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },-->
+<!--         data: { -->
+<!--           driver_id: 1-->
+<!--         },-->
+<!--        type: 'GET'-->
+<!--      }).done(function (response) {-->
+        
+<!--        console.log('envio approve');-->
+<!--      }).fail(function (response) {-->
+<!--        console.log('marcho approve');-->
+<!--      });-->
+<!--    }-->
+<!--  }-->
+
+<!--function reject(){-->
+<!--  console.log("jocoliso")-->
+<!--    $.ajax({-->
+<!--        url: '/admins/reject',-->
+<!--        headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },-->
+<!--         data: { -->
+<!--           driver_id: 1-->
+<!--         },-->
+<!--        type: 'GET'-->
+<!--      }).done(function (response) {-->
+        
+<!--        console.log('envio rejecttatata');-->
+<!--      }).fail(function (response) {-->
+<!--        console.log('marcho reja');-->
+<!--      });-->
+<!--    }-->
+<!--  }-->
+  
+<!--  function appp(){-->
+<!--    console.log("jocolaiso")-->
+<!--    $.ajax({-->
+<!--          url: '/admins/approve',-->
+<!--          headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },-->
+<!--          data: { -->
+             
+<!--          },-->
+<!--          type: 'POST'-->
+<!--        }).done(function (response) {-->
+<!--          console.log('CANIO');-->
+<!--        }).fail(function (response) {-->
+<!--          console.log('CARRANZA');-->
+<!--        });-->
+<!--      }-->
+<!--}-->
+
+<!--</script>-->

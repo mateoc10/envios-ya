@@ -19,14 +19,14 @@ function approve() {
         $.ajax({
           url: '/admins/approve',
           headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
-           data: { 
+          data: { 
              
-           },
+          },
           type: 'POST'
         }).done(function (response) {
-          console.log('envio');
+          console.log('RAFAEL NADAL');
         }).fail(function (response) {
-          console.log('marcho');
+          console.log('ZZZZZZZZZZZZ');
         });
       }
       
@@ -36,13 +36,13 @@ function reject() {
         $.ajax({
           url: '/admins/reject',
           headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },
-           data: { 
+          data: { 
              
-           },
+          },
           type: 'POST'
         }).done(function (response) {
-          console.log('envio');
+          console.log('ROGER FEDERER');
         }).fail(function (response) {
-          console.log('marcho');
+          console.log('AAAAAAAAAAA');
         });
       }

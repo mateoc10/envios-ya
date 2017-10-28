@@ -10,21 +10,22 @@ helper_method :reject
         flash[:success] = "Welcome to Envios ya!"
     end
     
-    def confrim_driver
+    def confirm_driver
+       @nil_drivers = Driver.where(:active => nil)
     end
     
     
     def approve()
-      d = Driver.find_by_id(1)
+      d = Driver.find_by_id(3)
       d['active'] = true
+      d.active = true
       d.save
-      flash[:success] = "entro approve"
     end
     
     def reject()
-      dr = Driver.find_by_id(1)
+      dr = Driver.find_by_id(3)
       dr['active'] = false
+      dr.active = false
       dr.save
-      flash[:success] = "entro reject"
     end
 end

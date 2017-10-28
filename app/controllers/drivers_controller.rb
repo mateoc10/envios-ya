@@ -1,5 +1,7 @@
 class DriversController < ApplicationController
   
+  skip_before_action :require_login, only: [:new, :create] 
+  
   def shipment_list
      @shipment_in_progress = Shipment.where(:state => 'In progress') #cambiar por estado y filtrar solo los de este driver
      @shipment_deliveder = Shipment.where(:state => 'Delivered')
