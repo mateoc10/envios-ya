@@ -4,14 +4,15 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(:admin, url: '') do |f| %>
-    
-    <%= f.label :Drivers %>
-    <%= f.collection_select :driver, @nil_drivers, :id, :name,  {:prompt => @select_value, :selected => :id } %>
-    
-    <button class="btn btn-primary" onclick="approve()">Approve</button>
-    <button class="btn btn-primary" onclick="reject()">Reject</button>
-
-    <% end %>
+      <% if @nil_drivers.count > 0 %>
+        <%= f.label :Drivers %>
+        <%= f.collection_select :driver, @nil_drivers, :id, :name,  {:prompt => @select_value, :selected => :id } %>
+        <button class="btn btn-primary" onclick="approve()">Approve</button>
+        <button class="btn btn-primary" onclick="reject()">Reject</button>
+        <%else%>
+        <%= f.label :No_drivers_for_approve_or_reject %>
+      <% end %>
+    <%end%>
 
   </div>
 </div>

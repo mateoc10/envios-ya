@@ -24,9 +24,9 @@ function approve() {
           },
           type: 'POST'
         }).done(function (response) {
-          console.log('RAFAEL NADAL');
+          console.log('OK- '+ response);
         }).fail(function (response) {
-          console.log('ZZZZZZZZZZZZ');
+          console.log('ERROR- ' + response);
         });
       }
       
@@ -41,8 +41,8 @@ function reject() {
           },
           type: 'POST'
         }).done(function (response) {
-          console.log('ROGER FEDERER');
+          console.log('OK- '+ response);
         }).fail(function (response) {
-          console.log('AAAAAAAAAAA');
+          console.log('ERROR- ' + response);
         });
       }

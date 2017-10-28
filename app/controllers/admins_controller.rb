@@ -16,14 +16,14 @@ helper_method :reject
     
     
     def approve()
-      d = Driver.find_by_id(3)
+      d = Driver.find_by_id(4)
       d['active'] = true
       d.active = true
       d.save
     end
     
     def reject()
-      dr = Driver.find_by_id(3)
+      dr = Driver.find_by_id(4)
       dr['active'] = false
       dr.active = false
       dr.save

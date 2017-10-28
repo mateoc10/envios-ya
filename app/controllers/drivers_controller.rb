@@ -1,6 +1,6 @@
 class DriversController < ApplicationController
   
-  skip_before_action :require_login, only: [:new, :create] 
+  # skip_before_action :require_login, only: [:new, :create] 
   
   def shipment_list
      @shipment_in_progress = Shipment.where(:state => 'In progress') #cambiar por estado y filtrar solo los de este driver
@@ -12,10 +12,12 @@ class DriversController < ApplicationController
     render '../views/drivers/shipment'
   end
   
-  def end_shipment(id)
-    @ship = Shipment.find_by_id(id)
+  def end_shipment()
+    @ship = Shipment.find_by_id(params[:shipment_id])
+    pp @ship, params[:shipment_id], 'ship'
     @ship.state = 'Delivered'
     @ship.save
+    redirect_to '/drivers/shipment_list'
   end
   
   def new

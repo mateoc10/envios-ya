@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   post 'drivers/shipment',  to: 'drivers#end_shipment'
   get    '/drivers_session/login',   to: 'driver_sessions#new'
   post   '/drivers_session/login',   to: 'driver_sessions#create' 
+  post 'drivers/delivered', to: 'drivers#end_shipment'
   
   
   resources :shipments
