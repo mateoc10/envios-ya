@@ -1,9 +1,14 @@
 class UsersController < ApplicationController
   
   helper_method :get_user_by_id
+  helper_method :get_users_by_mail
   
   def new
     @user = User.new
+  end
+  
+  def get_users_by_mail
+    return User.select('email')
   end
   
   

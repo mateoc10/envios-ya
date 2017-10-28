@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'layout/home'
   
   resources :users
+  get '/users/all', to: 'users#get_users_by_mail'
   post '/signup',  to: 'users#create'
   # get '/get_user_by_id' to: 'users#get_user_by_id'
   get    '/login',   to: 'sessions#new'

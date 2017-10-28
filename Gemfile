@@ -30,7 +30,7 @@ gem 'geokit'
 gem 'geocoder'
 gem 'rgeo'
 gem 'activerecord-postgis-adapter'
-
+gem 'jwt'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
