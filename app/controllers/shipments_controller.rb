@@ -50,7 +50,7 @@ class ShipmentsController < ApplicationController
       receiver.save
       pp 'no existe', receiver
       @Shipment.receiver = receiver
-      # enviar mail
+      UserMailer.welcome_email(@Shipment.receiver.email, @Shipment.sender.id).deliver_now
     end
     pp 'ship', @Shipment
     if @Shipment.save
