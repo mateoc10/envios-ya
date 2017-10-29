@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'drivers/shipment'
   post 'drivers/shipment'
   get 'shipments/details'
+  get 'admins/login'
 
   root 'layout#home'
   get 'users/new'
@@ -42,7 +43,7 @@ Rails.application.routes.draw do
   post '/shipment/details', to: 'shipments#details'
   
   resources :admin
-  
+  post '/admins/login', to: 'admins#login'
   post 'approve', to: 'admins#approve'
   post 'reject', to: 'admins#reject'
   # get '/admins/create', to: 'admins#create'

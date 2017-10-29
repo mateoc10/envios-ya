@@ -1,22 +1,17 @@
-<% provide(:title, "Drivers confirmation") %>
-<h1>Driver confirmation</h1>
+<% provide(:title, "Admin login") %>
+<h1>Admin login</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:admin, url: 'admins/create') do |f| %>
+    <%= form_tag(admins_login_path) do |f| %>
     
-    <%= f.label :Drivers %>
-    <%= f.collection_select :driver, Driver.order(:name), :id, :name,  {:prompt => @select_value, :selected => :id } %>
-    
-    
-    
-    <!--no se usa-->
-    
-    
-    
-    <%= f.button "Reject", class: "btn btn-primary" , link_to: '/admins/reject' %>
-    
-
+      <label>Username</label>
+      <%= text_field_tag 'username' %>
+      
+      <label>Password</label>
+      <%= password_field_tag :password %>
+      
+      <%= submit_tag "Submit", class: "btn btn-primary" %>
     <% end %>
 
   </div>

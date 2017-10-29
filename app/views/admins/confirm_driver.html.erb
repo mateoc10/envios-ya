@@ -3,71 +3,26 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:admin, url: '') do |f| %>
+
       <% if @nil_drivers.count > 0 %>
-        <%= f.label :Drivers %>
-        <%= f.collection_select :driver, @nil_drivers, :id, :name,  {:prompt => @select_value, :selected => :id } %>
-        <button class="btn btn-primary" onclick="approve()">Approve</button>
-        <button class="btn btn-primary" onclick="reject()">Reject</button>
-        <%else%>
-        <%= f.label :No_drivers_for_approve_or_reject %>
+        <label>Drivers</label>
+        <% @nil_drivers.each do |element| %>
+         <div class="col-md-12"> 
+           <%= element.name %> 
+           <%= form_tag(admins_approve_path) do  %>
+            <%= hidden_field_tag 'id' , element.id %>
+            <%= submit_tag 'Approve' ,class:"btn btn-primary col-md-2"%>
+          <%end%>
+           <%= form_tag(admins_reject_path) do  %>
+            <%= hidden_field_tag 'id' , element.id %>
+            <%= submit_tag 'Reject',class:"btn btn-primary col-md-2" %>
+          <%end%>
+        </div>
       <% end %>
-    <%end%>
+       
+      <%else%>
+         <label>No drivers for approve or reject</label>
+      <% end %>
 
   </div>
 </div>
-
-<!--<script>-->
-<!--function approve(){-->
-<!--    $.ajax({-->
-<!--        url: '/admins/approve',-->
-<!--        headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },-->
-<!--         data: { -->
-<!--           driver_id: 1-->
-<!--         },-->
-<!--        type: 'GET'-->
-<!--      }).done(function (response) {-->
-        
-<!--        console.log('envio approve');-->
-<!--      }).fail(function (response) {-->
-<!--        console.log('marcho approve');-->
-<!--      });-->
-<!--    }-->
-<!--  }-->
-
-<!--function reject(){-->
-<!--  console.log("jocoliso")-->
-<!--    $.ajax({-->
-<!--        url: '/admins/reject',-->
-<!--        headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },-->
-<!--         data: { -->
-<!--           driver_id: 1-->
-<!--         },-->
-<!--        type: 'GET'-->
-<!--      }).done(function (response) {-->
-        
-<!--        console.log('envio rejecttatata');-->
-<!--      }).fail(function (response) {-->
-<!--        console.log('marcho reja');-->
-<!--      });-->
-<!--    }-->
-<!--  }-->
-  
-<!--  function appp(){-->
-<!--    console.log("jocolaiso")-->
-<!--    $.ajax({-->
-<!--          url: '/admins/approve',-->
-<!--          headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') },-->
-<!--          data: { -->
-             
-<!--          },-->
-<!--          type: 'POST'-->
-<!--        }).done(function (response) {-->
-<!--          console.log('CANIO');-->
-<!--        }).fail(function (response) {-->
-<!--          console.log('CARRANZA');-->
-<!--        });-->
-<!--      }-->
-<!--}-->
-
-<!--</script>-->

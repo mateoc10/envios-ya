@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171025124915) do
+ActiveRecord::Schema.define(version: 20171029161411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_table "admins", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -46,6 +47,9 @@ ActiveRecord::Schema.define(version: 20171025124915) do
     t.datetime "documentation_updated_at"
     t.integer "location"
     t.bigint "location_id"
+    t.float "lat"
+    t.float "long"
+    t.index "st_geographyfromtext((((('SRID=4326;POINT('::text || long) || ' '::text) || lat) || ')'::text))", name: "index_on_drivers_location", using: :gist
     t.index ["location"], name: "index_drivers_on_location"
   end
 
@@ -77,7 +81,6 @@ ActiveRecord::Schema.define(version: 20171025124915) do
     t.bigint "origin_id"
     t.bigint "destination_id"
     t.float "weight"
-    t.string "status"
     t.index ["destination"], name: "index_shipments_on_destination"
     t.index ["destination_id"], name: "index_shipments_on_destination_id"
     t.index ["driver"], name: "index_shipments_on_driver"
