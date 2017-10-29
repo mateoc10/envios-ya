@@ -31,6 +31,7 @@ gem 'geocoder'
 gem 'rgeo'
 gem 'activerecord-postgis-adapter'
 gem 'faraday'
+gem 'figaro'
 
 
 # Use CoffeeScript for .coffee assets and views

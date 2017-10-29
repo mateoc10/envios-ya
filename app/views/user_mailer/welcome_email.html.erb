@@ -10,7 +10,7 @@
     </p>
     <p>
       To signup to the site, just follow this link:
-      https://envios-ya-obligatorio.mybluemix.net/signup?invitee=<%= @senderId %>
+      <%= ENV['URL']%>?invitee=<%= @senderId %>
     </p>
     <p>Thanks for joining and have a great day!</p>
   </body>
