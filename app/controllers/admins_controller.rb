@@ -2,6 +2,7 @@ class AdminsController < ApplicationController
 helper_method :approve
 helper_method :reject
     
+  
   def new
     @admin = Admin.new
   end

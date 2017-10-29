@@ -1,6 +1,9 @@
 class ShipmentsController < ApplicationController
   
   before_action :init_shipment
+  before_action do 
+    require_login("user")
+  end
   
   def init_shipment
     @Shipment ||= Shipment.new
@@ -72,9 +75,10 @@ class ShipmentsController < ApplicationController
       UserMailer.welcome_email(@Shipment.receiver.email, @Shipment.sender.id).deliver_now
     end
     if @Shipment.save
-      flash.now[:success] = "Success!"
+      redirect_to root_path
+      flash[:success] = "Success!"
     else
-      flash.now[:danger] = 'error'#:shipments.errors
+      flash[:danger] = 'error'#:shipments.errors
     end
   end
   
@@ -92,25 +96,27 @@ class ShipmentsController < ApplicationController
     driver1, driver2, driver3 = nil
     d1, d2, d3 = nil
     Driver.includes(:location).all.each do |d|
-      distance = Geocoder::Calculations.distance_between([lat.to_f,lng.to_f], [d.location.lat,d.location.long])
-      if d3 == nil || distance < d3
-        if d2 == nil || distance < d2
-          if d1 == nil || distance < d1
-            d3 = d2 
-            driver3 = driver2
-            d2 = d1
-            driver2 = driver1
-            d1 = distance
-            driver1 = d
+      if d.available
+        distance = Geocoder::Calculations.distance_between([lat.to_f,lng.to_f], [d.location.lat,d.location.long])
+        if d3 == nil || distance < d3
+          if d2 == nil || distance < d2
+            if d1 == nil || distance < d1
+              d3 = d2 
+              driver3 = driver2
+              d2 = d1
+              driver2 = driver1
+              d1 = distance
+              driver1 = d
+            else
+              d3 = d2
+              driver3 = driver2
+              d2 = distance
+              driver2 = d
+            end
           else
-            d3 = d2
-            driver3 = driver2
-            d2 = distance
-            driver2 = d
+            d3 = distance
+            driver3 = d
           end
-        else
-          d3 = distance
-          driver3 = d
         end
       end
       end

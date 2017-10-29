@@ -1,6 +1,9 @@
 class DriversController < ApplicationController
   
-  skip_before_action :require_login, only: [:new, :create] 
+  # skip_before_action :require_login, only: [:new, :create] 
+  before_action only: [:shipment_list, :shipment, :end_shipment] do 
+    require_login("driver")
+  end
   
   def shipment_list
      @shipment_in_progress = Shipment.where(:state => 'In Progress' , :driver_id => current_driver.id) 

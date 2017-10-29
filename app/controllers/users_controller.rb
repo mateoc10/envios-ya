@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   
-  skip_before_action :require_login, only: [:new, :create] 
+  # skip_before_action :require_login, only: [:new, :create] 
+  
   
   
   helper_method :get_user_by_id
