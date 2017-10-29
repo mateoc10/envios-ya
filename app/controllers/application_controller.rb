@@ -3,16 +3,16 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include DriverSessionsHelper
   
-  # before_action :require_login
+  before_action :require_login
  
-  # private
+  private
  
-  # def require_login
-  #   unless logged_in?
-  #     flash[:error] = "Debe loguearse para utilizar esta funcionalidad"
-  #     redirect_to '#'
-  #   end
-  # end
+  def require_login
+    unless logged_in? || logged_in_driver?
+      flash[:error] = "Debe loguearse para utilizar esta funcionalidad"
+      redirect_to '#'
+    end
+  end
   
   def hello
     

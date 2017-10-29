@@ -54,6 +54,10 @@ class ShipmentsController < ApplicationController
       @user.save(validate: false)
     end
     
+    @Shipment.driver.available = false;
+    @Shipment.driver.save(validate: false)
+    
+    
     receiver = User.find_by_email(params[:receiver])
     if receiver != nil
       @Shipment.receiver = receiver

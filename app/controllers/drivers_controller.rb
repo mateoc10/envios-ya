@@ -1,6 +1,6 @@
 class DriversController < ApplicationController
   
-  # skip_before_action :require_login, only: [:new, :create] 
+  skip_before_action :require_login, only: [:new, :create] 
   
   def shipment_list
      @shipment_in_progress = Shipment.where(:state => 'In Progress') #cambiar por estado y filtrar solo los de este driver
@@ -14,9 +14,14 @@ class DriversController < ApplicationController
   
   def end_shipment()
     @ship = Shipment.find_by_id(params[:shipment_id])
-    pp @ship, params[:shipment_id], 'ship'
     @ship.state = 'Delivered'
     @ship.save
+    
+    @driver = @ship.driver;
+    pp "driver", @driver
+    @driver.available = true;
+    @driver.location = @ship.destination;
+    @ship.driver.save(validate: false)
     redirect_to '/drivers/shipment_list'
   end
   
@@ -28,6 +33,7 @@ class DriversController < ApplicationController
     @driver = Driver.new(driver_params)
     loc = Location.first
     @driver.location = loc
+    @driver.available = true
     if @driver.save
       flash[:success] = "Before starting to use EnviosYarq, you have to be accepted"
       redirect_to root_path
