@@ -34,8 +34,7 @@ class DriversController < ApplicationController
   
   def create
     @driver = Driver.new(driver_params)
-    loc = Location.first
-    @driver.location = loc
+    @driver.location = create_location("-34.914871", "-56.148750")
     @driver.available = true
     if @driver.save
       flash[:success] = "Before starting to use EnviosYarq, you have to be accepted"
