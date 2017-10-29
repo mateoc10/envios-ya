@@ -6,7 +6,12 @@
       Start by creating a shipment
     </h2>
     <%= link_to "Create shipment", '/shipments/new', class: "btn btn-lg btn-primary" %>
-  <% else %>
+  <% elsif logged_in_driver? %>
+    <h2>
+      You can review your shipments here
+    </h2>
+    <%= link_to "Shipment List", drivers_shipment_list_path, class: "btn btn-lg btn-primary" %>
+  <% else%>
     <h2>
       Please login or signup to start using 
     </h2>

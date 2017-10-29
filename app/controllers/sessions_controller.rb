@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   
-  skip_before_action :require_login, only: [:new, :create] 
+  # skip_before_action :require_login, only: [:new, :create] 
   def new
   end
 
@@ -20,7 +20,13 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out
+    pp "logout", get_role, logged_in?, logged_in_driver?
+    
+    if get_role == "user"
+      log_out
+    else 
+      log_out_driver
+    end
     redirect_to root_url
   end
 end

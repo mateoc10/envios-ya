@@ -1,20 +1,28 @@
 module SessionsHelper
     def log_in(user)
         session[:user_id] = user.id
+        session["role"] = "user"
     end
     
     def current_user
         @current_user ||= User.find_by(id: session[:user_id])
     end
     
+    def get_role
+       session["role"] 
+    end
+    
     def logged_in?
-        !current_user.nil?
+        !current_user.nil? && session["role"] == "user"
     end
     
     def log_out
-        forget(current_user)
-        session.delete(:user_id)
-        @current_user = nil
+        if logged_in?
+            forget(current_user)
+            session.delete(:user_id)
+            session.delete("role")
+            @current_user = nil
+        end
     end
     
     def remember(user)
@@ -36,8 +44,10 @@ module SessionsHelper
     end
     
     def forget(user)
-        user.forget
-        cookies.delete(:user_id)
-        cookies.delete(:remember_token)
+        if logged_in?
+            user.forget
+            cookies.delete(:user_id)
+            cookies.delete(:remember_token)
+        end
     end
 end

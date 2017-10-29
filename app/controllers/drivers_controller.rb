@@ -29,8 +29,8 @@ class DriversController < ApplicationController
     loc = Location.first
     @driver.location = loc
     if @driver.save
-      flash[:success] = "Welcome to the Envios ya!"
-      render 'new'
+      flash[:success] = "Before starting to use EnviosYarq, you have to be accepted"
+      redirect_to root_path
     else
       if :password != :password_confirmation 
         flash.now[:danger] = "Passwords don't match"
