@@ -32,4 +32,8 @@ class ApplicationController < ActionController::Base
   def hello
     
   end
+  
+  def routing_error
+    render :file => 'public/404.html', :status => 404, :layout => false, head: 404
+  end
 end
