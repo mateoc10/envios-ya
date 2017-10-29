@@ -52,11 +52,8 @@ Rails.application.routes.draw do
   
   #get '/admins/admins/create', to: 'admins#approve'
   #post '/reject', to: 'admins#reject'
-  
-  
-  
-
-  
+  health_check_routes
+  match '*path' => 'application#routing_error', :via => [:get]
   
   
 end
