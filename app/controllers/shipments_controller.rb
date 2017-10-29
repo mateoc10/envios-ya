@@ -44,7 +44,6 @@ class ShipmentsController < ApplicationController
       @user.save(validate: false)
     end
     
-    pp "first", current_user
     if current_user.new_user
       if current_user.invitee != nil
         @invitee = User.find_by_id(current_user.invitee)
@@ -54,8 +53,6 @@ class ShipmentsController < ApplicationController
       @user.new_user = false
       @user.save(validate: false)
     end
-    
-    pp "second", current_user
     
     receiver = User.find_by_email(params[:receiver])
     if receiver != nil

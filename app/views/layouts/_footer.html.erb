@@ -4,7 +4,7 @@
   </small>
   <nav>
     <ul>
-      <% if !logged_in? %>
+      <% if !logged_in? && !logged_in_driver? %>
         <li> Are you a driver?</li>
         <li><%= link_to "Login", '/drivers_session/login' %></li>
         <li><%= link_to "Signup", '/drivers/new' %></li>
