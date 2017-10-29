@@ -40,8 +40,10 @@ module DriverSessionsHelper
     end
     
     def forget_driver(driver)
-        driver.forget
-        cookies.delete(:driver_id)
-        cookies.delete(:remember_token)
+        if logged_in_driver?
+            driver.forget
+            cookies.delete(:driver_id)
+            cookies.delete(:remember_token)
+        end
     end
 end
