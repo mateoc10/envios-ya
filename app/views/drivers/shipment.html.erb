@@ -32,7 +32,7 @@
           <%= @shipment.payment%>
           <br>
           
-          <% if @shipment.state == 'In progress' %>
+          <% if @shipment.state == 'In Progress' %>
           <%= form_tag(drivers_delivered_path) do  %>
             <%= hidden_field_tag 'shipment_id' , @shipment.id %>
             <%= submit_tag 'End' %>

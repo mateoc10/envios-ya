@@ -5,15 +5,42 @@
   <div class="col-md-12 col-md-offset-3">
       
     <label>Shipments in progress</label> 
-    <% @shipment_in_progress.each do |element| %>
-       <li> <%= element.date %> <%= link_to 'See',drivers_shipment_path(:id => element.id), class: 'btn btn-primary'%></li>
-       
-    <% end %>
+    <%if @shipment_in_progress.count > 0%>
+      <% @shipment_in_progress.each do |element| %>
+         <li>
+           Date: 
+           <%= element.date %> <br>
+           From:
+           <%= element.origin.street %> <%= element.origin.number %> <br>
+           To:
+           <%= element.destination.street %> <%= element.destination.number %>  <br>
+           <%= link_to 'See',drivers_shipment_path(:id => element.id), class: 'btn btn-primary'%>
+        </li>
+      <% end %>
+    <%else%>
+      <br>
+      No shipments in progress
+      <br>
+    <%end%>
     
     <label>Shipments delivered</label> 
-    <% @shipment_deliveder.each do |element| %>
-       <li> <%= element.date %> <%= link_to 'See',drivers_shipment_path(:id => element.id), class: 'btn btn-primary'%></li>
-    <% end %>
+    <%if @shipment_deliveder.count > 0 %>
+      <% @shipment_deliveder.each do |element| %>
+         <li> 
+           Date: 
+           <%= element.date %> <br>
+           From:
+           <%= element.origin.street %> <%= element.origin.number %> <br>
+           To:
+           <%= element.destination.street %> <%= element.destination.number %>  <br>
+           <%= link_to 'See',drivers_shipment_path(:id => element.id), class: 'btn btn-primary'%>
+        </li>
+      <% end %>
+    <%else%>
+      <br>
+      No shipments delivered
+      <br>
+    <%end%>
 
   </div>
 </div>
