@@ -1,10 +1,10 @@
 <footer class="footer">
-  <small>
-   <%= link_to "Log as admin", '/admins/login' %>
-  </small>
-  <nav>
-    <ul>
-      <% if !logged_in? && !logged_in_driver? %>
+  <% if !logged_in? && !logged_in_driver? %>
+    <small>
+     <%= link_to "Log as admin", '/admins/login' %>
+    </small>
+    <nav>
+      <ul>
         <li> Are you a driver?</li>
         <li><%= link_to "Login", '/drivers_session/login' %></li>
         <li><%= link_to "Signup", '/drivers/new' %></li>

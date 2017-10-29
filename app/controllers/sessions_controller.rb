@@ -9,8 +9,6 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user
       remember user
-      # redirect_to user
-      # we really should redirect to the main page inside the app
       flash.now[:success] = 'You are logged in'
       redirect_to '/shipments/new'
     else

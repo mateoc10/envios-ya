@@ -13,7 +13,7 @@ class DriverSessionsController < ApplicationController
         flash.now[:success] = 'Welcome driver!'
       else
         redirect_to root_path
-        flash.now[:danger] = 'You must be accepted first!'
+        flash[:danger] = 'You must be accepted first!'
       end
     else
       flash.now[:danger] = 'Invalid email/password combination'
