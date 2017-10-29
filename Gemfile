@@ -30,6 +30,7 @@ gem 'geokit'
 gem 'geocoder'
 gem 'rgeo'
 gem 'activerecord-postgis-adapter'
+gem 'faraday'
 
 
 # Use CoffeeScript for .coffee assets and views

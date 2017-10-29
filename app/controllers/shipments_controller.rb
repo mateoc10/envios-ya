@@ -14,18 +14,28 @@ class ShipmentsController < ApplicationController
   end
   
   def details
-    
-    originLoc = create_location(params[:originLat], params[:originLng])
-    destinationLoc = create_location(params[:destinationLat], params[:destinationLng])
-    @Shipment.origin = originLoc
-    @Shipment.destination = destinationLoc
-    # @halfShipment = params[:shipment]
     @near_drivers = get_near_drivers(params[:originLat], params[:originLng])
-    render "../views/shipments/shipment_details"
+    if @near_drivers.length==0
+      flash[:danger] = 'No hay drivers disponibles en este momento'
+      redirect_to root_path
+    else
+      originLoc = create_location(params[:originLat], params[:originLng])
+      destinationLoc = create_location(params[:destinationLat], params[:destinationLng])
+      @Shipment.origin = originLoc
+      @Shipment.destination = destinationLoc
+      # @halfShipment = params[:shipment]
+      @price_per_kilo = calculate_price_per_kg
+      render "../views/shipments/shipment_details"
+    end
+  end
+  
+  def calculate_price_per_kg
+    conn = Faraday.new(url: 'https://delivery-rates.mybluemix.net/') 
+    conn.basic_auth('180121', 'EDQBtYNNP2H1')
+    JSON.parse(conn.get('/cost').body)["cost"]
   end
   
   def create
-    pp "params", params
     @Shipment = Shipment.new(user_params)
     originLoc = create_location(params[:originLat], params[:originLng])
     destinationLoc = create_location(params[:destinationLat], params[:destinationLng])
@@ -37,7 +47,7 @@ class ShipmentsController < ApplicationController
     @Shipment.date = DateTime.now
     @Shipment.sender = current_user
     @Shipment.driver = Driver.find_by_id(params[:shipment][:driver])
-    @Shipment.price = 100
+    @Shipment.price = params[:price_per_kilo] * @Shipment.weight
     
     @user = User.find_by_id(current_user.id)
     
@@ -78,19 +88,10 @@ class ShipmentsController < ApplicationController
       redirect_to root_path
       flash[:success] = "Success!"
     else
-      flash[:danger] = 'error'#:shipments.errors
+      flash[:danger] = 'error'
     end
   end
   
-  def receive_locations
-    @shipment = Shipment.new
-    list = params['markerList']
-    
-    @origin = originLoc
-    @destination = destinationLoc
-    @price = calculate_price
-    @near_drivers = get_near_drivers(list["0"]["lat"], list["0"]["lng"])
-  end
   
   def get_near_drivers(lat, lng)
     driver1, driver2, driver3 = nil
@@ -119,8 +120,11 @@ class ShipmentsController < ApplicationController
           end
         end
       end
-      end
-    near_drivers = [driver1, driver2, driver3]
+    end
+    near_drivers = []
+    near_drivers << driver1 unless driver1.nil?
+    near_drivers << driver2 unless driver2.nil?
+    near_drivers << driver3 unless driver3.nil?
     return near_drivers
   end
 

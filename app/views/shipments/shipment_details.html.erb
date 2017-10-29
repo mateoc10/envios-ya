@@ -28,6 +28,11 @@
       <%= f.label :drive %>
       <%= f.collection_select :driver, @near_drivers, :id, :name,  {:prompt => @select_value, :selected => :id } %>
       
+      <%= f.label 'Price per Kg' %>
+      $<%= @price_per_kilo %>
+      <%= hidden_field_tag 'price_per_kilo', @price_per_kilo %>
+      <br>
+      
       <%= f.label 'Weight' %>
       <%= f.text_field :weight %>
       
