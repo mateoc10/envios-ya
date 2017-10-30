@@ -33,6 +33,7 @@ class ShipmentsController < ApplicationController
     url_api = ENV['URLAPIKG']
     user = ENV['USER']
     pass = ENV['PASSWORD']
+    pp "variables", url_api, user, pass
     conn = Faraday.new(url: url_api) 
     conn.basic_auth(user, pass)
     JSON.parse(conn.get('/cost').body)["cost"]
