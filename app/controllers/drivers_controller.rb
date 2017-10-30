@@ -10,6 +10,10 @@ class DriversController < ApplicationController
      @shipment_deliveder = Shipment.where(:state => 'Delivered', :driver_id => current_driver.id) 
   end
   
+  def all
+    flash[:succes] - "rodri"
+  end
+  
   def shipment
     @shipment = Shipment.find_by_id(params[:id])
     render '../views/drivers/shipment'
@@ -45,6 +49,20 @@ class DriversController < ApplicationController
       end
       render 'new'
     end
+  end
+  
+  def get_drivers_json
+
+    drivers = Driver.includes(:location).all
+    
+    render json: drivers
+    # pp "llegaratzo", drivers.to_json(:only => [ :name, :last_name, :location, :available ])
+    # respond_to :json
+    # format.json { render :json => {:message => "Success"} }
+    # render :json => drivers.to_json
+    # render drivers.to_json
+    # format.json { render :json => drivers.to_json }
+    # format.json { render :json => drivers.to_json }
   end
   
   private
