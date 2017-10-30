@@ -54,10 +54,12 @@ class DriversController < ApplicationController
   def get_drivers_json
 
     drivers = Driver.includes(:location).all
-    pp "llegaratzo", drivers.to_json(:only => [ :name, :last_name, :location, :available ])
-    respond_to :json
-    format.json { render :json => {:message => "Success"} }
-    render :json => drivers.to_json
+    
+    render json: drivers
+    # pp "llegaratzo", drivers.to_json(:only => [ :name, :last_name, :location, :available ])
+    # respond_to :json
+    # format.json { render :json => {:message => "Success"} }
+    # render :json => drivers.to_json
     # render drivers.to_json
     # format.json { render :json => drivers.to_json }
     # format.json { render :json => drivers.to_json }
