@@ -25,10 +25,10 @@ class DriversController < ApplicationController
     @ship.save
     
     @driver = @ship.driver;
-    pp "driver", @driver
     @driver.available = true;
     @driver.location = @ship.destination;
     @ship.driver.save(validate: false)
+    UserMailer.confirmation_email(@Shipment).deliver_later
     redirect_to '/drivers/shipment_list'
   end
   
