@@ -3,8 +3,8 @@ development:
   GMAIL_PASSWORD: 'enviosyarq2017'
   URL: 'https://obligatorio1-erreperez.c9users.io/signup'
   URLAPIKG: 'https://delivery-rates.mybluemix.net/'
-  USER: '180121'
-  PASSWORD: 'EDQBtYNNP2H1'
+  USERAPI: '180121'
+  PASSWORDAPI: 'EDQBtYNNP2H1'
   
   
 production:
@@ -12,5 +12,5 @@ production:
   GMAIL_PASSWORD: 'enviosyarq2017'
   URL: 'https://envios-ya-obligatorio.mybluemix.net'
   URLAPIKG: 'https://delivery-rates.mybluemix.net/'
-  USER: '180121'
-  PASSWORD: 'EDQBtYNNP2H1'
+  USERAPI: '180121'
+  PASSWORDAPI: 'EDQBtYNNP2H1'

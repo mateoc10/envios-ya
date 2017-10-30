@@ -31,8 +31,8 @@ class ShipmentsController < ApplicationController
   
   def calculate_price_per_kg
     url_api = ENV['URLAPIKG']
-    user = ENV['USER']
-    pass = ENV['PASSWORD']
+    user = ENV['USERAPI']
+    pass = ENV['PASSWORDAPI']
     conn = Faraday.new(url: url_api) 
     conn.basic_auth(user, pass)
     JSON.parse(conn.get('/cost').body)["cost"]
