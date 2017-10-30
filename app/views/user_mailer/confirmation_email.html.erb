@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>The shipment was delivered</h1> 
+
+      <label>Sender email:</label>
+      <%= @shipment.sender.email%>
+      <br>
+      <label>Destination email:</label>
+      <%= @shipment.receiver.email%>
+      <br>
+      <label>Date:</label>
+      <%= @shipment.date%>
+      <br>
+      <label>Origin:</label>
+      <%= @shipment.origin.street%>,
+      <%= @shipment.origin.number%>,
+      <%= @shipment.origin.zipcode%>
+      <br>
+      <label>Destination:</label>
+      <%= @shipment.destination.street%>,
+      <%= @shipment.origin.number%>,
+      <%= @shipment.origin.zipcode%>
+      <br>
+      <label>Price:</label>
+      <%= @shipment.price%>
+      <br>
+      <label>State:</label>
+      <%= @shipment.state%>
+      <br>
+      <label>Payment method:</label>
+      <%= @shipment.payment%>
+      <br>
+  </body>
+</html>

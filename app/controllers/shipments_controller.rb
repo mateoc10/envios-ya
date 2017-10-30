@@ -82,7 +82,7 @@ class ShipmentsController < ApplicationController
       end
       receiver.save
       @Shipment.receiver = receiver
-      UserMailer.welcome_email(@Shipment.receiver.email, @Shipment.sender.id).deliver_now
+      UserMailer.welcome_email(@Shipment.receiver.email, @Shipment.sender.id).deliver_later
     end
     if @Shipment.save
       redirect_to root_path
