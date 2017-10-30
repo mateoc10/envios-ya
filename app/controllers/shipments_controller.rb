@@ -30,8 +30,11 @@ class ShipmentsController < ApplicationController
   end
   
   def calculate_price_per_kg
-    conn = Faraday.new(url: 'https://delivery-rates.mybluemix.net/') 
-    conn.basic_auth('180121', 'EDQBtYNNP2H1')
+    url_api = ENV['URLAPIKG']
+    user = ENV['USER']
+    pass = ENV['PASSWORD']
+    conn = Faraday.new(url: url_api) 
+    conn.basic_auth(user, pass)
     JSON.parse(conn.get('/cost').body)["cost"]
   end
   
