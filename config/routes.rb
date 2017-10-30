@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'drivers/shipment'
   get 'shipments/details'
   get 'admins/login'
+  get 'drivers/get_drivers_json'
 
   root 'layout#home'
   get 'users/new'
@@ -31,9 +32,10 @@ Rails.application.routes.draw do
   post '/drivers/signup', to: 'drivers#create'
   get 'drivers/shipment',  to: 'drivers#shipment'
   post 'drivers/shipment',  to: 'drivers#end_shipment'
-  get    '/drivers_session/login',   to: 'driver_sessions#new'
-  post   '/drivers_session/login',   to: 'driver_sessions#create' 
+  get '/drivers_session/login',   to: 'driver_sessions#new'
+  post '/drivers_session/login',   to: 'driver_sessions#create' 
   post 'drivers/delivered', to: 'drivers#end_shipment'
+  get 'drivers/get_drivers_json', to: 'drivers#get_drivers_json', format: :json
   
   
   resources :shipments
